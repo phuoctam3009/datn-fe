@@ -1,0 +1,9 @@
+{
+    "links": {
+        "home": "Home",
+        "about": "About Us",
+        "products": "Products",
+        "timeline": "Timeline",
+        "contact": "Contact Us"
+    }
+}
