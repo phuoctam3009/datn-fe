@@ -1,7 +1,7 @@
 export default [
-    {name: 'home', ref: "#headerSection"},
-    {name: 'about', ref: "#aboutSection"},
-    {name: 'products', ref: "#productsSection"},
-    {name: 'timeline', ref: "#timelineSection"},
-    {name: 'contact', ref: "#contactSection"}
+    { name: 'Home', ref: "#headerSection" },
+    { name: 'Position', ref: "#aboutSection" },
+    { name: 'Resume', ref: "#productsSection" },
+    { name: 'Company', ref: "#timelineSection" },
+    { name: 'Pages', ref: "#contactSection" }
 ]
