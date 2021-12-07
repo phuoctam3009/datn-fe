@@ -161,7 +161,12 @@
           <span>{{ item.type }}</span>
         </div>
       </div>
+      <div class="text-center">
+        <v-btn rounded color="primary" dark> Rounded Button </v-btn>
+      </div>
     </div>
+    <Statistic></Statistic>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -177,6 +182,8 @@ import AnimatedBackground from "@/components/custom/animated-background";
 
 import GlobalComputed from "@/helpers/global-computed";
 import GlobalMethods from "@/helpers/global-methods";
+import Footer from "@/components/main/e-footer";
+import Statistic from "@/components/main/statistic";
 
 export default {
   name: "Home",
@@ -184,6 +191,8 @@ export default {
     AnimateText,
     ScrollIcon,
     AnimatedBackground,
+    Footer,
+    Statistic,
   },
   data() {
     return {
