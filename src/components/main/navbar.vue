@@ -1,13 +1,3 @@
-<i18n>
-{
-    "ar": {
-        
-    },
-    "en": {
-        
-    }
-}
-</i18n>
 <template>
   <v-app-bar
     :light="light"
@@ -30,24 +20,33 @@
       </div>
       <v-spacer />
       <v-slide-x-reverse-transition appear>
-        <div class="d-flex">
-          <div class="d-flex align-center" v-for="(item, i) in menus" :key="i">
-            <v-btn class="ms-2" :outlined="true">
-              {{ item.name }}
-            </v-btn>
-          </div>
+        <v-row justify="space-around">
+          <v-menu v-for="(menu, index) in menus" :key="menu.name" offset-y>
+            <template v-slot:activator="{ attrs, on }">
+              <v-btn class="white--text ma-5" v-bind="attrs" v-on="on">
+                {{ menu.name }}
+              </v-btn>
+            </template>
 
-          <div class="d-flex align-center ms-8">
-            <locale-button :large="pcOnly" />
-          </div>
-        </div>
+            <v-list>
+              <v-list-item
+                v-for="item in menus[index].child"
+                :key="item.link"
+                :href="item.link"
+                link
+              >
+                <v-list-item-title v-text="item.context"></v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-row>
       </v-slide-x-reverse-transition>
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
-import LocaleButton from "../custom/locale-button";
+// import LocaleButton from "../custom/locale-button";
 import Logo from "./logo";
 
 import GlobalComputed from "@/helpers/global-computed";
@@ -57,7 +56,7 @@ import menus from "@/helpers/menu";
 
 export default {
   name: "navbar",
-  components: { Logo, LocaleButton },
+  components: { Logo },
   props: {
     lightTheme: {
       type: Boolean,
@@ -69,6 +68,7 @@ export default {
       scrolled: false,
       links,
       menus,
+      items: [...Array(4)].map((_, i) => `Item ${i}`),
     };
   },
   computed: {

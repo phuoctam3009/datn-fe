@@ -75,72 +75,6 @@
 </i18n>
 <template>
   <div class="page page-sections">
-    <section
-      id="headerSection"
-      data-section="home"
-      class="header-section dark-gradient fullpage-section"
-    >
-      <animated-background />
-      <v-container
-        v-if="!loading"
-        class="fill-height pt-12"
-        :class="{ 'align-center': phoneOnly }"
-      >
-        <v-slide-y-transition appear>
-          <h1 class="strong-text--text">
-            <animate-text
-              :duration="1500"
-              :stop-after="0"
-              :delay="500"
-              :text="$t('sections.1.title')"
-            />
-            <!-- <span class="secondary--text font-weight-medium">EBMSOFT</span> -->
-          </h1>
-        </v-slide-y-transition>
-        <v-slide-x-transition appear>
-          <h2 class="text--text mt-5">
-            <animate-text
-              @done="showSection1Actions = true"
-              :duration="2500"
-              :delay="2000"
-              :text="$t('sections.1.subtitle')"
-            ></animate-text>
-            <!-- <div>Information Technology & Electronic Business Company</div> -->
-          </h2>
-        </v-slide-x-transition>
-        <div
-          class="actions"
-          :class="{
-            'fade-up-off': !showSection1Actions,
-            'fade-up-on': showSection1Actions,
-          }"
-        >
-          <!-- <v-btn @click="navigateToLink('#productsSection')" color="strong-text" tile :large="pcOnly" depressed outlined class="me-6">{{$t('sections.actions.products')}}</v-btn> -->
-          <v-btn
-            @click="navigateToLink('#aboutSection')"
-            color="strong-text"
-            tile
-            :large="pcOnly"
-            depressed
-            outlined
-            class="me-6"
-            >{{ $t("sections.actions.about") }}</v-btn
-          >
-          <v-btn
-            @click="navigateToLink('#contactSection')"
-            color="secondary"
-            tile
-            :large="pcOnly"
-            outlined
-            >{{ $t("sections.actions.contact") }}</v-btn
-          >
-        </div>
-      </v-container>
-
-      <div class="section-scroll-icon">
-        <scroll-icon @click="scrollToSection(2)" />
-      </div>
-    </section>
     <div class="center">
       <header class="section-header">
         <span>LATEST</span>
@@ -162,11 +96,36 @@
         </div>
       </div>
     </div>
+    <v-row align="center" justify="space-around">
+      <v-btn depressed color="primary"> Browse all jobs </v-btn>
+    </v-row>
+    <v-row
+      align="center"
+      justify=""
+      no-gutters
+      style="height: 150px; margin: 0 250px"
+    >
+      <v-col v-for="item in dashboardsInfo" :key="item.content">
+        <div>
+          <p>
+            <count-to
+              :start-val="0"
+              :end-val="item.amount"
+              :duration="3000"
+              class="card-panel-num"
+            />+
+          </p>
+          <br />
+          <h6>{{ item.content }}</h6>
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import CountTo from "vue-count-to";
 import "particles.js";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
@@ -181,6 +140,7 @@ import GlobalMethods from "@/helpers/global-methods";
 export default {
   name: "Home",
   components: {
+    CountTo,
     AnimateText,
     ScrollIcon,
     AnimatedBackground,
@@ -240,6 +200,7 @@ export default {
           description: "Founder and CEO of EBMSoft company ",
         },
       ],
+      //API get info job
       items: [
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
@@ -268,6 +229,24 @@ export default {
           company: "Google",
           location: "Menlo park, CA",
           type: "FULL TIME",
+        },
+      ],
+      dashboardsInfo: [
+        {
+          content: "Jobs",
+          amount: "6890",
+        },
+        {
+          content: "Members",
+          amount: "1200",
+        },
+        {
+          content: "Resume",
+          amount: "36800",
+        },
+        {
+          content: "Company",
+          amount: "15400",
         },
       ],
     };
