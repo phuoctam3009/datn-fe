@@ -20,42 +20,33 @@
       </div>
       <v-spacer />
       <v-slide-x-reverse-transition appear>
-        <div class="d-flex">
-          <!-- <div class="d-flex align-center" v-for="(item, i) in menus" :key="i">
-            <v-btn class="ms-2" :outlined="true">
-              {{ item.name }}
-            </v-btn>
-          </div>
+        <v-row justify="space-around">
+          <v-menu v-for="(menu, index) in menus" :key="menu.name" offset-y>
+            <template v-slot:activator="{ attrs, on }">
+              <v-btn class="white--text ma-5" v-bind="attrs" v-on="on">
+                {{ menu.name }}
+              </v-btn>
+            </template>
 
-          <div class="d-flex align-center ms-8">
-            <locale-button :large="pcOnly" />
-          </div> -->
-          <v-row justify="space-around">
-            <v-menu v-for="(text, index) in btns" :key="text" offset-y>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn class="white--text ma-5" v-bind="attrs" v-on="on">
-                  {{ text }}
-                </v-btn>
-              </template>
-
-              <v-list>
-                <v-list-item v-for="item in items[index]" :key="item" link>
-                  <v-list-item-title v-text="item"></v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-row>
-          <div class="d-flex align-center ms-8">
-            <locale-button :large="pcOnly" />
-          </div>
-        </div>
+            <v-list>
+              <v-list-item
+                v-for="item in menus[index].child"
+                :key="item.link"
+                :href="item.link"
+                link
+              >
+                <v-list-item-title v-text="item.context"></v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-row>
       </v-slide-x-reverse-transition>
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
-import LocaleButton from "../custom/locale-button";
+// import LocaleButton from "../custom/locale-button";
 import Logo from "./logo";
 
 import GlobalComputed from "@/helpers/global-computed";
@@ -65,7 +56,7 @@ import menus from "@/helpers/menu";
 
 export default {
   name: "navbar",
-  components: { Logo, LocaleButton },
+  components: { Logo },
   props: {
     lightTheme: {
       type: Boolean,
@@ -77,15 +68,7 @@ export default {
       scrolled: false,
       links,
       menus,
-      btns: ["Home", "Position", "Resume", "Company", "Pages"],
-      colors: ["deep-purple accent-4", "error", "teal darken-1"],
-      items: [
-        ["test", "test5"],
-        ["test", "test4"],
-        ["test", "test3"],
-        ["test", "test2"],
-        ["test", "test1"],
-      ],
+      items: [...Array(4)].map((_, i) => `Item ${i}`),
     };
   },
   computed: {
