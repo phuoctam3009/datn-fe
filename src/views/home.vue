@@ -151,7 +151,6 @@ export default {
   },
   data() {
     return {
-      showSection1Actions: false,
       currentScrollTop: 0,
 
       contactItems: [

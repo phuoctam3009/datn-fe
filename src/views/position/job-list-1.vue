@@ -222,7 +222,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 section {
   position: relative;
   padding: 96px 0;
@@ -253,7 +253,7 @@ section.bg-alt {
 .card-filter {
   border: 1px solid;
   width: 1200px;
-  min-height: 500px;
+  /* min-height: 500px; */
   margin-top: 10px;
 }
 .button-filter {

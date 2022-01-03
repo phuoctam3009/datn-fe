@@ -3,9 +3,9 @@
     <v-img
       class="logo"
       transition="none"
-      :src="light ? 'img/logo.png' : '/img/logo-white.png'"
       :width="width"
-      height="auto"
+      src="https://picsum.photos/id/11/500/300"
+      height="100%"
       contain
       @click="navigate"
     />

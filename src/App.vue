@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <loading :loading="loading" />
-    <navbar :light-theme="lightNavbar" />
-    <section
+    <navbar />
+    <!-- <section
       id="headerSection"
       data-section="home"
       class="header-section dark-gradient"
@@ -14,19 +14,9 @@
         class="fill-height pt-12"
         :class="{ 'align-center': phoneOnly }"
       >
-        <div
-          class="actions"
-          :class="{
-            'fade-up-off': !showSection1Actions,
-            'fade-up-on': showSection1Actions,
-          }"
-        ></div>
+        <div class="actions"></div>
       </v-container>
-
-      <div class="section-scroll-icon">
-        <scroll-icon @click="scrollToSection(2)" />
-      </div>
-    </section>
+    </section> -->
 
     <v-main>
       <router-view />
@@ -236,6 +226,6 @@ html,
 }
 
 .header-section {
-  height: 70vh;
+  height: 65vh;
 }
 </style>

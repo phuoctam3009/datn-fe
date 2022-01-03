@@ -1,47 +1,6 @@
 <template>
-  <v-app-bar
-    :light="light"
-    :height="scrolled ? this.navbarHeight : pcOnly ? 130 : 100"
-    class="navbar"
-    :class="{
-      blank: !scrolled & !light,
-      'soft-shadow': light,
-      'dark-gradient': scrolled && !light,
-    }"
-    :flat="!light"
-    fixed
-    :color="light ? 'white' : 'dark'"
-    :dark="!light"
-  >
-    <v-container class="d-flex align-center">
-      <div>
-        <!-- logo -->
-        <logo :light="light" :width="pcOnly ? 140 : 125" />
-      </div>
-      <v-spacer />
-      <v-slide-x-reverse-transition appear>
-        <v-row justify="space-around">
-          <v-menu v-for="(menu, index) in menus" :key="menu.name" offset-y>
-            <template v-slot:activator="{ attrs, on }">
-              <v-btn class="white--text ma-5" v-bind="attrs" v-on="on">
-                {{ menu.name }}
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="item in menus[index].child"
-                :key="item.link"
-                :href="item.link"
-                link
-              >
-                <v-list-item-title v-text="item.context"></v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-row>
-      </v-slide-x-reverse-transition>
-    </v-container>
+  <v-app-bar>
+    <logo></logo>
   </v-app-bar>
 </template>
 

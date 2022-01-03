@@ -125,7 +125,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .header {
   padding: 0 30px;
 }
