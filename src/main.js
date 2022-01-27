@@ -6,6 +6,8 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import "./registerServiceWorker";
 import i18n from './i18n'
+import moment from 'moment'
+
 
 Vue.config.productionTip = false;
 

@@ -27,7 +27,7 @@ export default new Router({
       component: JobList1,
     },
     {
-      path: "/job-detail",
+      path: "/job-detail/:jobId",
       name: "JobDetail",
       component: JobDetail,
     },

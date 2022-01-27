@@ -1,6 +1,24 @@
 <template>
   <v-app-bar>
-    <logo></logo>
+    <div class="navbar-header">
+      <img
+        src="https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
+        alt="TopCV tuyen dung tai TopCV"
+        title="TopCV tuyển dụng tại TopCV"
+        class=""
+        style="height: 50px"
+      />
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li v-for="menu in menus" :key="menu.name">
+        {{ menu.name }}
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>Test</li>
+      <li>Test</li>
+      <li>Test</li>
+    </ul>
   </v-app-bar>
 </template>
 
@@ -80,6 +98,26 @@ export default {
     letter-spacing: 1.1px;
     margin: 0 20px;
     border-style: none;
+  }
+}
+.navbar-left {
+  display: flex;
+  flex-direction: row;
+  min-width: 500px;
+  li {
+    list-style: none;
+    margin-right: 30px;
+  }
+}
+
+.navbar-right {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  li {
+    list-style: none;
+    margin-right: 30px;
   }
 }
 </style>

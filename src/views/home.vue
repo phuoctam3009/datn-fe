@@ -1,104 +1,245 @@
-<i18n>
-{
-    "en": {
-        "sections": {
-            "1": {
-                "title": "Software Development Company",
-                "subtitle": "We provide advanced software solutions, services and platforms that empowers e-business industry workers in the Middle East."
-            },
-            "about": {
-                "title": "About Us",
-                "subtitle": "Who we are and What are our goals1.",
-                "row1": {
-                    "title": "who we are, What we do, and What are our goals?",
-                    "content": "EBMSoft is a software and technology development company that develops and owns several advanced systems and projects aimed at supporting and developing e-business, developing its mechanism of work and making a breakthrough in the way businesses use modern technology. The company also provides services and platforms that help and solve the problems of workers of any e-business industry in the Middle East. And the Arab world."
-                },
-                "row2": {
-                    "title": "We develop custom softwares and technology!",
-                    "content": "EBMSoft's team uses the latest programming and design techniques to develop websites, systems, Android and IOS applications, as well as computer programs, which enables us to implement ideas and innovations in a custom fashion and launch modern, fast, and powerful platforms that include features unprecedented in other systems in the Middle East and the Arab world!"
-                }
-            },
-            "contact": {
-                "subtitle": "Leave us a message and we'll reply as soon as possible"
-            },
-            "timeline": {
-                "title": "Timeline of our history",
-                "subtitle": "the most important dates and events in EBMSoft's history"
-            },
-            "products": {
-                "title": "Our Products & Projects",
-                "subtitle": "Platforms, Services and Solutions that are developed and managed by EBMSoft"
-            },
-            "industries": {
-                "title": "Industries We Develop",
-                "subtitle": "Industries that we are currently working on developing it and providing software solutions to solve their problems.",
-                "cols": [
-                    {
-                        "headline": "E-Commerce",
-                        "description": "We are working to develop and operate projects and platforms that provide solutions for the e-commerce and its workers those working, which helps the seller in reaching the buyer as well as the buyer in reaching a better product."
-                    },
-                    {
-                        "headline": "Financial Tech",
-                        "description": "We are working on developing platforms, software and solutions for Financial Technology and Money Transfer that faces many problems in the Middle East, specifically the Arab world."
-                    },
-                    {
-                        "headline": "Business Managment",
-                        "description": "We are working on programming and developing advanced software solutions that helps companies and Businesses in Management and Accounting by using modern technology"
-                    }
-                ]
-            },
-            "actions": {
-                "contact": "Contact Us",
-                "about": "More About Us",
-                "products": "Our Products"
-            }
-        },
-        "timeline": [
-            {
-                "title": "Founding EBMSoft for Software Development",
-                "content": "EBMSoft was founded to develop and provide advanced software solutions that empowers e-business industry workers and take people to the digital area in the Middle East."
-            },
-            {
-                "date": "Soon",
-                "title": "Launching the first system / platform",
-                "content": "Launching the first system and platform developed by EBMSoft for e-commerce industry workers to provide better and modern solutions and solve the problems of this industry in the Middle East."
-            }
-        ],
-        "contact": {
-            "subheader": "or contact us via:",
-            "email": "Email Address",
-            "facebook": "Facebook Page",
-            "website": "Website"
-        }
-    }
-}
-</i18n>
 <template>
   <div class="page page-sections">
+    <v-card class="mx-auto card-filter">
+      <v-form v-model="valid" style="border: 1px solid">
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="3">
+              <v-text-field
+                style="margin-top: -12px"
+                label="Tên công việc, vị trí muốn ứng tuyển"
+                required
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="3">
+              <v-select
+                style="margin-top: -7px"
+                label="Trình độ"
+                dense
+                outlined
+                clearable
+                :menu-props="{ top: false, offsetY: true }"
+              ></v-select>
+            </v-col>
+
+            <v-col cols="12" md="3">
+              <v-select
+                style="margin-top: -7px"
+                v-model="test"
+                :items="itemCategories"
+                label="Thành phố"
+                dense
+                outlined
+                clearable
+                :menu-props="{ top: false, offsetY: true }"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="3" style="margin-top: -7px">
+              <v-btn style="margin-right: 20px" color="green">Tìm kiếm</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </v-card>
     <div class="center">
-      <header class="section-header">
-        <span>LATEST</span>
-      </header>
-      <h2>Recent jobs</h2>
-      <hr />
-      <div class="list-job row" v-for="(item, index) in items" :key="index">
-        <div class="col-2">
-          <img :src="item.avatar" />
+      <v-card class="top-job">
+        <div class="header-content">
+          <span>Tin tuyển dụng, việc làm tốt nhất</span>
         </div>
-        <div class="col-7 hgroup">
-          <h4>{{ item.title }}</h4>
-          <h5>{{ item.company }}</h5>
+        <v-row>
+          <v-col
+            v-for="(item, index) in listJobHot"
+            :key="index"
+            cols="12"
+            md="4"
+            class="info-job"
+          >
+            <img class="icon-company" :src="item.company.avatar" />
+            <v-col>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <h3 v-bind="attrs" v-on="on" class="text-truncate">
+                    <router-link
+                      :to="{ name: 'JobDetail', params: { jobId: item.id } }"
+                      target="_blank"
+                    >
+                      {{ item.jobTitle }}
+                    </router-link>
+                  </h3>
+                </template>
+                <span>{{ item.jobTitle }}</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <span
+                    v-bind="attrs"
+                    v-on="on"
+                    class="d-inline-block text-truncate"
+                    style="max-width: 300px"
+                  >
+                    {{ item.company.companyName }}
+                  </span>
+                </template>
+                <span>{{ item.company.companyName }}</span>
+              </v-tooltip>
+            </v-col>
+
+            <v-row>
+              <v-chip>10-15 triệu</v-chip>
+              <v-chip>Remote</v-chip>
+            </v-row>
+          </v-col>
+        </v-row>
+        <div>
+          <v-pagination
+            v-model="page"
+            :length="totalPages"
+            circle
+            class="paging"
+          ></v-pagination>
         </div>
-        <div class="col-3 header-meta">
-          <span>{{ item.location }}</span>
-          <br />
-          <span>{{ item.type }}</span>
-        </div>
-      </div>
+      </v-card>
+
+      <v-sheet class="mx-auto" elevation="8" max-width="1140">
+        <v-slide-group
+          v-model="model"
+          class="pa-4"
+          active-class="success"
+          show-arrows
+        >
+          <!-- Ads job -->
+          <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
+            <v-card
+              :color="active ? undefined : 'grey lighten-1'"
+              class="ma-3"
+              height="200"
+              width="305"
+              @click="toggle"
+            >
+              <v-row class="fill-height" align="center" justify="center">
+                <v-scale-transition>
+                  <v-icon v-if="active" color="white" size="30"></v-icon>
+                </v-scale-transition>
+              </v-row>
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+      <v-row>
+        <v-col>
+          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <template slot="progress">
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
+            </template>
+
+            <v-card-title>Việc làm lương cao</v-card-title>
+
+            <v-card-text>
+              <div v-for="index in 10" :key="index" class="specific-job">
+                <v-row>
+                  <img
+                    class="icon-company"
+                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
+                  />
+                  <v-col>
+                    <h3 class="name-job">Lập trình viên Javascript</h3>
+                    <span class="name-company">Công ty FPT</span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-chip>10-15 triệu</v-chip>
+                  <v-chip>Remote</v-chip>
+                </v-row>
+                <v-divider class="mx-4"></v-divider>
+              </div>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <template slot="progress">
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
+            </template>
+
+            <v-card-title>Công việc remote</v-card-title>
+
+            <v-card-text>
+              <div v-for="index in 10" :key="index" class="specific-job">
+                <v-row>
+                  <img
+                    class="icon-company"
+                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
+                  />
+                  <v-col>
+                    <h3 class="name-job">Lập trình viên Javascript</h3>
+                    <span class="name-company">Công ty FPT</span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-chip>10-15 triệu</v-chip>
+                  <v-chip>Remote</v-chip>
+                </v-row>
+                <v-divider class="mx-4"></v-divider>
+              </div>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <template slot="progress">
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
+            </template>
+
+            <v-card-title>Tuyển thực tập sinh</v-card-title>
+
+            <v-card-text>
+              <div v-for="index in 10" :key="index" class="specific-job">
+                <v-row>
+                  <img
+                    class="icon-company"
+                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
+                  />
+                  <v-col>
+                    <h3 class="name-job">Lập trình viên Javascript</h3>
+                    <span class="name-company">Công ty FPT</span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-chip>10-15 triệu</v-chip>
+                  <v-chip>Remote</v-chip>
+                </v-row>
+                <v-divider class="mx-4"></v-divider>
+              </div>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
-    <v-row align="center" justify="space-around">
-      <v-btn depressed color="primary"> Browse all jobs </v-btn>
-    </v-row>
     <v-row
       align="center"
       justify=""
@@ -134,10 +275,10 @@ import AnimateText from "@/components/custom/animate-text";
 import ScrollIcon from "@/components/custom/scroll-icon";
 import AnimatedBackground from "@/components/custom/animated-background";
 
-import GlobalComputed from "@/helpers/global-computed";
 import GlobalMethods from "@/helpers/global-methods";
-import Footer from "@/components/main/e-footer";
+import Footer from "@/components/main/footer";
 import Statistic from "@/components/main/statistic";
+import { listRecruitments } from "../api/recruitments/recruitments";
 
 export default {
   name: "Home",
@@ -152,88 +293,8 @@ export default {
   data() {
     return {
       currentScrollTop: 0,
-
-      contactItems: [
-        {
-          name: "email",
-          icon: "mdi-email",
-          value: "info@ebmsoft.net",
-          color: "primary",
-        },
-        {
-          name: "facebook",
-          icon: "mdi-facebook",
-          value: "@EBMSoft.net",
-          color: "blue darken-1",
-          href: "https://facebook.com/ebmsoft.net",
-        },
-        {
-          name: "website",
-          icon: "mdi-web",
-          value: "www.ebmsoft.net",
-          color: "grey",
-          href: "https://ebmsoft.net",
-        },
-      ],
-      projects: [
-        {
-          image: "/img/coming-soon.png",
-          title: "EBM Affiliates System",
-          subtitle:
-            "Advanced and Modern E-commerce platform that helps sellers connect with marketers and affiliates people that have the ability to reach buyers easily by their selling channels",
-        },
-        {
-          image: "/img/coming-soon.png",
-          title: "E-Commerce Platform",
-          subtitle:
-            "E-Commerce Project, we'll publish more info at the right time",
-        },
-        {
-          image: "/img/coming-soon.png",
-          title: "E-Commerce Project",
-          subtitle:
-            "E-commerce Project that will help merchants and small-to-medium stores to start selling online!",
-        },
-      ],
-      teamMembers: [
-        {
-          name: "Ebrahim Maher",
-          job: "Founder, CEO & Developer",
-          avatar: "/img/team/ebrahim-maher.jpg",
-          description: "Founder and CEO of EBMSoft company ",
-        },
-      ],
+      page: 1,
       //API get info job
-      items: [
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Senior front-end developer",
-          company: "Google",
-          location: "Menlo park, CA",
-          type: "FULL TIME",
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Senior front-end developer",
-          company: "Google",
-          location: "Menlo park, CA",
-          type: "FULL TIME",
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Senior front-end developer",
-          company: "Google",
-          location: "Menlo park, CA",
-          type: "FULL TIME",
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Senior front-end developer",
-          company: "Google",
-          location: "Menlo park, CA",
-          type: "FULL TIME",
-        },
-      ],
       dashboardsInfo: [
         {
           content: "Jobs",
@@ -252,48 +313,28 @@ export default {
           amount: "15400",
         },
       ],
+      totalPages: 0,
+      listJobHot: [],
+      queryParams: {
+        page: 1,
+        size: 12,
+      },
     };
   },
-  computed: {
-    industriesCols() {
-      return [
-        {
-          color: "blue",
-          icon: "mdi-cart-outline",
-          headline: this.$t("sections.industries.cols.0.headline"),
-          description: this.$t("sections.industries.cols.0.description"),
-        },
-        {
-          color: "deep-orange",
-          icon: "mdi-currency-usd-circle-outline",
-          headline: this.$t("sections.industries.cols.1.headline"),
-          description: this.$t("sections.industries.cols.1.description"),
-        },
-        {
-          color: "teal",
-          icon: "mdi-store",
-          headline: this.$t("sections.industries.cols.2.headline"),
-          description: this.$t("sections.industries.cols.2.description"),
-        },
-      ];
-    },
-    timeline() {
-      return [
-        {
-          date: "27-8-2020",
-          title: this.$t("timeline.0.title"),
-          content: this.$t("timeline.0.content"),
-        },
-        {
-          date: this.$t("timeline.1.date"),
-          title: this.$t("timeline.1.title"),
-          content: this.$t("timeline.1.content"),
-        },
-      ];
-    },
-    ...GlobalComputed,
+  created() {
+    this.getList();
   },
   methods: {
+    getList() {
+      console.log(this.queryParams);
+      listRecruitments(this.queryParams).then((response) => {
+        if (response.status == 200) {
+          this.listJobHot = response.data.content;
+          this.totalPages = response.data.totalPages;
+          console.log(this.listJobHot);
+        }
+      });
+    },
     scrollToSection(n) {
       let i = n - 1,
         element = document.querySelectorAll(".page-sections section")[i];
@@ -330,12 +371,20 @@ export default {
         }
       });
     },
+    detailJob(idJob) {
+      router;
+      console.log("detail job", idJob);
+    },
 
     ...GlobalMethods,
   },
   watch: {
     currentScrollTop(top) {
       this.handleScrollChange(top);
+    },
+    page(value) {
+      this.queryParams.page = value ? value : 1;
+      this.getList();
     },
   },
 
@@ -433,5 +482,70 @@ section {
 h2 {
   font-size: 37px;
   text-align: center;
+}
+
+.v-card .v-form {
+  max-height: 75px;
+}
+form {
+  color: #fafafa;
+}
+
+.top-job {
+  margin-top: 30px;
+  .header-content {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-style: bold;
+  }
+}
+.icon-company {
+  height: 100px;
+  width: 200px;
+}
+.info-job {
+  // border: 0.5px solid;
+  margin-left: 20px;
+  margin-bottom: 35px;
+  height: 200px;
+  img {
+    border-radius: 10px;
+  }
+  .row {
+    margin-bottom: 10px;
+    margin-left: 15px;
+    .v-chip {
+      margin-right: 10px;
+    }
+  }
+}
+.col-md-4 {
+  max-width: 31.333333%;
+}
+.v-sheet {
+  margin: 30px 0;
+}
+.paging > ul {
+  margin: 15px 0;
+}
+.v-card__text {
+  height: 700px;
+  overflow-y: auto;
+}
+
+img {
+  border-radius: 10px;
+}
+.row {
+  margin-bottom: 10px;
+  .v-chip {
+    margin-right: 10px;
+  }
+}
+
+.specific-job {
+  margin-bottom: 10px;
 }
 </style>
