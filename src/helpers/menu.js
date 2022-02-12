@@ -1,5 +1,5 @@
 export default [
-  { name: "Việc làm", child: [] },
-  { name: "Nhà tuyển dụng", child: [] },
-  { name: "Hồ sơ & CV", child: [] },
+  { name: "Việc làm", child: [], path: "/job" },
+  { name: "Nhà tuyển dụng", child: [], path:"/company" },
+  { name: "Hồ sơ & CV", child: [], path:"/resume" },
 ];

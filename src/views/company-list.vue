@@ -190,7 +190,7 @@ section.bg-alt {
       font-size: 17px;
       margin-top: 6px;
       color: #96a2b2;
-      font-family: Open Sans, sans-serif;
+      font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
       font-weight: 300;
     }
   }

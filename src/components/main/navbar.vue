@@ -1,23 +1,54 @@
 <template>
-  <v-app-bar>
+  <v-app-bar max-height="64px">
     <div class="navbar-header">
-      <img
-        src="https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
-        alt="TopCV tuyen dung tai TopCV"
-        title="TopCV tuyển dụng tại TopCV"
-        class=""
-        style="height: 50px"
-      />
+      <router-link to="/">
+        <img
+          src="https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
+          alt="TopCV tuyen dung tai TopCV"
+          title="TopCV tuyển dụng tại TopCV"
+          class=""
+          style="height: 50px"
+          @click="toIndexPage"
+        />
+      </router-link>
     </div>
     <ul class="nav navbar-nav navbar-left">
       <li v-for="menu in menus" :key="menu.name">
-        {{ menu.name }}
+        <router-link :to="menu.path" style="text-decoration: none">
+          {{ menu.name }}
+        </router-link>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
+      <div v-if="!currentUser" class="navbar-nav ml-auto">
+        <v-row>
+          <li class="nav-item">
+            <router-link to="/login" style="text-decoration: none">
+              <v-btn color="primary" depressed>Đăng nhập</v-btn>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/register" style="text-decoration: none">
+              <v-btn color="green">Đăng ký</v-btn>
+            </router-link>
+          </li>
+        </v-row>
+      </div>
+      <div v-if="currentUser" class="navbar-nav ml-auto">
+        <v-row>
+          <li class="nav-item">
+            <router-link to="/profile" style="text-decoration: none">
+              <font-awesome-icon icon="user" />
+              {{ currentUser.username }}
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href @click.prevent="logOut">
+              <font-awesome-icon icon="sign-out-alt" /> Đăng xuất
+            </a>
+          </li>
+        </v-row>
+      </div>
     </ul>
   </v-app-bar>
 </template>
@@ -55,11 +86,22 @@ export default {
     activeSection() {
       return this.$store.state.activeSection;
     },
+    currentUser() {
+      console.log("auth", this.$store.state.auth.user);
+      return this.$store.state.auth.user;
+    },
     ...GlobalComputed,
   },
   methods: {
     handleScroll() {
       this.scrolled = window.scrollY > 0;
+    },
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
+    toIndexPage() {
+      this.$router.push("/");
     },
 
     ...GlobalMethods,
@@ -117,6 +159,7 @@ export default {
   right: 0;
   li {
     list-style: none;
+    text-decoration: none;
     margin-right: 30px;
   }
 }

@@ -7,9 +7,25 @@ import vuetify from "./plugins/vuetify";
 import "./registerServiceWorker";
 import i18n from './i18n'
 import moment from 'moment'
+import VeeValidate from 'vee-validate';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import VueSweetalert2 from 'vue-sweetalert2';
 
-
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css';
+import {
+  faHome,
+  faUser,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt
+} from '@fortawesome/free-solid-svg-icons';
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 Vue.config.productionTip = false;
+Vue.use(VeeValidate);
+Vue.use(VueSweetalert2);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
   router,

@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { auth } from './auth.module';
+
 
 Vue.use(Vuex);
 
@@ -10,16 +12,18 @@ export default new Vuex.Store({
         activeSection: 'home',
     },
     mutations: {
-        SET_LOADING(state, loading){
+        SET_LOADING(state, loading) {
             state.loading = !!loading;
         },
-        SET_LIGHT_NAVBAR(state, light){
+        SET_LIGHT_NAVBAR(state, light) {
             state.lightNavbar = !!light;
         },
-        SET_ACTIVE_SECTION(state, section){
+        SET_ACTIVE_SECTION(state, section) {
             state.activeSection = section;
         },
     },
     actions: {},
-    modules: {}
+    modules: {
+        auth
+    }
 });

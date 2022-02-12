@@ -95,7 +95,6 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-@import url(https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700&family=Poppins:wght@200;300;400;500;600&display=swap);
 .v-application,
 body,
 html,
@@ -105,7 +104,7 @@ html,
 .v-application .title,
 .v-application .v-card .v-card__title,
 .v-list .v-list-item__title {
-  font-family: "poppins", "cairo" !important;
+  font-family: "Roboto", sans-serif !important;
   &.v-application--is-rtl {
     div,
     h1,

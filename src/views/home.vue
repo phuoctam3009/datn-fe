@@ -72,14 +72,21 @@
               </v-tooltip>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <span
-                    v-bind="attrs"
-                    v-on="on"
-                    class="d-inline-block text-truncate"
-                    style="max-width: 300px"
+                  <route-link
+                    :to="{
+                      name: 'CompanyDetail',
+                      params: { companyId: item.company.id },
+                    }"
                   >
-                    {{ item.company.companyName }}
-                  </span>
+                    <span
+                      v-bind="attrs"
+                      v-on="on"
+                      class="d-inline-block text-truncate"
+                      style="max-width: 300px"
+                    >
+                      {{ item.company.companyName }}
+                    </span>
+                  </route-link>
                 </template>
                 <span>{{ item.company.companyName }}</span>
               </v-tooltip>
@@ -240,13 +247,13 @@
         </v-col>
       </v-row>
     </div>
-    <v-row
+    <!-- <v-row
       align="center"
       justify=""
       no-gutters
       style="height: 150px; margin: 0 250px"
     >
-      <v-col v-for="item in dashboardsInfo" :key="item.content">
+      <!-- <v-col v-for="item in dashboardsInfo" :key="item.content">
         <div>
           <p>
             <count-to
@@ -259,8 +266,8 @@
           <br />
           <h6>{{ item.content }}</h6>
         </div>
-      </v-col>
-    </v-row>
+      </v-col> -->
+    <!-- </v-row> -->
   </div>
 </template>
 
@@ -427,7 +434,7 @@ section {
     }
   }
   h2 {
-    font-family: Oswald, sans-serif;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
     letter-spacing: 1px;
     margin: 16px 0;
     line-height: 1.4;
@@ -472,7 +479,7 @@ section {
     margin-bottom: 72px;
     span {
       color: #c8d0d7;
-      font-family: Montserrat, sans-serif;
+      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;

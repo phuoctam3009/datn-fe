@@ -15,3 +15,17 @@ export function getRecruitmentById(id) {
         method: "get",
     });
 }
+
+export function getRecruitmentReferenceByCompanyId(companyId, recruitmentId) {
+    return request({
+        url: "/recruitment/reference/company/" + companyId + "/recruitment/" + recruitmentId,
+        method: "get",
+    })
+}
+
+export function getRecruitmentsReference(recruitmentId) {
+    return request({
+        url: "/recruitment/reference/recruitment/" + recruitmentId,
+        method: "get",
+    })
+}

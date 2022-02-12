@@ -1,9 +1,7 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
-
-
   pwa: {
-    name: 'EBMSoft',
+    name: 'TestSoft',
     themeColor: '#050A19',
     msTileColor: '#050A19',
     appleMobileWebAppCapable: 'yes',
@@ -27,5 +25,6 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: true
     }
-  }
+  },
+  lintOnSave: false
 };

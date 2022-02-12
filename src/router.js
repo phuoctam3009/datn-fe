@@ -10,6 +10,11 @@ import ManageResume from "./views/resume-manage.vue";
 import CompanyList from "./views/company-list.vue";
 import CompanyDetail from "./views/company-detail.vue";
 import AddCompany from "./views/add-company.vue";
+import Login from './views/Login.vue';
+import Register from './views/Register.vue';
+import Profile from './views/Profile.vue';
+import ResumeTemplate from './views/resume-template.vue'
+import Resume from './views/resume.vue'
 
 Vue.use(Router);
 
@@ -57,7 +62,7 @@ export default new Router({
       component: CompanyList,
     },
     {
-      path: "/company-detail",
+      path: "/company-detail/:companyId",
       name: "CompanyDetail",
       component: CompanyDetail,
     },
@@ -66,5 +71,39 @@ export default new Router({
       name: "AddCompany",
       component: AddCompany,
     },
+    {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/register',
+      component: Register
+    },
+    {
+      path: '/profile',
+      component: Profile
+    },
+    {
+      path: '/resume',
+      component: ResumeTemplate
+    },
+    {
+      path: '/resume/:resumeid',
+      name: 'resume',
+      component: Resume
+    }
   ],
 });
+
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['/login', '/register', '/home'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
+//   // trying to access a restricted page + not logged in
+//   // redirect to login page
+//   if (authRequired && !loggedIn) {
+//     next('/login');
+//   } else {
+//     next();
+//   }
+// });

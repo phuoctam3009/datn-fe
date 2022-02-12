@@ -275,7 +275,7 @@ section.bg-alt {
 .name-job {
   font-size: 25px;
   color: black;
-  font-family: Open Sans, sans-serif;
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
   font-weight: 300;
   margin: 0;
 }

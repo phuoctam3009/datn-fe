@@ -125,7 +125,7 @@ export default {
 
     span {
       color: #c8d0d7;
-      font-family: Montserrat, sans-serif;
+      font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -157,7 +157,7 @@ export default {
           font-size: 17px;
           margin-top: 6px;
           color: #96a2b2;
-          font-family: Open Sans, sans-serif;
+          font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
           font-weight: 300;
         }
       }

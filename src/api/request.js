@@ -6,7 +6,7 @@ const service = axios.create({
     // The request is configured with the baseURL option in axios, which indicates the public part of the request URL
     baseURL: "http://localhost:8080/",
     // time out
-    timeout: 100000
+    // timeout: 100000
 })
 
 export default service
