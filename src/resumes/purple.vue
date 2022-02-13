@@ -72,15 +72,14 @@ export default Vue.component(name, getVueOptions(name));
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
-@text-purple: #680568;
+<style lang="scss" scoped>
 #template {
     box-sizing:border-box;
     font-family:'Open Sans', sans-serif;
     h1, h2 {
         /*font-family:'Open Sans Condensed', sans-serif;*/
         margin:0;
-        color: @text-purple;
+        color: #680568;
     }
 
     p {
@@ -89,7 +88,7 @@ export default Vue.component(name, getVueOptions(name));
     }
 
     ul li {
-        color:@text-purple;
+        color:#680568;
         font-size:12px;
     }
 
@@ -182,13 +181,13 @@ export default Vue.component(name, getVueOptions(name));
 
         .job-title, .degree {
             font-weight:700;
-            color: @text-purple;
+            color: #680568;
             font-size:16px;
         }
 
         .experience-timeperiod, .education-timeperiod {
             font-weight:100;
-            color: @text-purple;
+            color: #680568;
             font-size:16px;
         }
 
@@ -226,7 +225,7 @@ export default Vue.component(name, getVueOptions(name));
 
 .spacer {
     width:100%;
-    border-bottom:1px solid @text-purple;
+    border-bottom:1px solid #680568;
     margin:5px 0 10px;
 
 }

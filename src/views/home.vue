@@ -45,7 +45,7 @@
     <div class="center">
       <v-card class="top-job">
         <div class="header-content">
-          <span>Tin tuyển dụng, việc làm tốt nhất</span>
+          <h2 class="box-title">Tin tuyển dụng, việc làm tốt nhất</h2>
         </div>
         <v-row>
           <v-col
@@ -247,27 +247,6 @@
         </v-col>
       </v-row>
     </div>
-    <!-- <v-row
-      align="center"
-      justify=""
-      no-gutters
-      style="height: 150px; margin: 0 250px"
-    >
-      <!-- <v-col v-for="item in dashboardsInfo" :key="item.content">
-        <div>
-          <p>
-            <count-to
-              :start-val="0"
-              :end-val="item.amount"
-              :duration="3000"
-              class="card-panel-num"
-            />+
-          </p>
-          <br />
-          <h6>{{ item.content }}</h6>
-        </div>
-      </v-col> -->
-    <!-- </v-row> -->
   </div>
 </template>
 
@@ -440,7 +419,7 @@ section {
     line-height: 1.4;
 
     @media (max-width: 960px) {
-      text-align: center;
+      // text-align: center;
       font-size: 1.3rem;
       font-weight: 300;
     }
@@ -501,6 +480,7 @@ form {
 .top-job {
   margin-top: 30px;
   .header-content {
+    padding-top: 10px;
     margin-top: 5px;
     margin-left: 20px;
     margin-bottom: 10px;
@@ -550,6 +530,15 @@ img {
   .v-chip {
     margin-right: 10px;
   }
+}
+.box-title {
+  border-left: 7px solid #00b14f;
+  color: #333;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  padding-left: 12px;
+  text-align: initial;
 }
 
 .specific-job {

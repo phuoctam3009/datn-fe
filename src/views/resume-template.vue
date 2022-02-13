@@ -1,22 +1,36 @@
 <template>
   <div class="home">
     <div class="previews">
-      <div class="preview">
-        <router-link v-bind:to="'/resume/material-dark'">
-          <div class="preview-wrapper">
-            <img src="../assets/preview/resume-material-dark.png" />
-            <span>material-dark</span>
-          </div>
-        </router-link>
-      </div>
-      <div class="preview">
-        <router-link v-bind:to="'/resume/material-dark-projects'">
-          <div class="preview-wrapper">
-            <img src="../assets/preview/resume-material-dark-projects.png" />
-            <span>material-dark-projects</span>
-          </div>
-        </router-link>
-      </div>
+      <draggable
+        v-model="myArray"
+        group="people"
+        @start="drag = true"
+        @end="drag = false"
+      >
+        <div class="preview">
+          <router-link v-bind:to="'/resume/material-dark'">
+            <div class="preview-wrapper">
+              <img src="../assets/preview/resume-material-dark.png" />
+              <span>material-dark</span>
+            </div>
+          </router-link>
+        </div>
+      </draggable>
+      <draggable
+        v-model="myArray"
+        group="people"
+        @start="drag = true"
+        @end="drag = false"
+      >
+        <div class="preview">
+          <router-link v-bind:to="'/resume/material-dark-projects'">
+            <div class="preview-wrapper">
+              <img src="../assets/preview/resume-material-dark-projects.png" />
+              <span>material-dark-projects</span>
+            </div>
+          </router-link>
+        </div>
+      </draggable>
       <div class="preview">
         <router-link v-bind:to="'/resume/left-right'">
           <div class="preview-wrapper">
@@ -129,21 +143,32 @@
           </div>
         </router-link>
       </div>
-      <div class="preview">
-        <router-link v-bind:to="'/resume/green'">
-          <div class="preview-wrapper">
-            <img src="../assets/preview/resume-green.png" />
-            <span>green</span>
-          </div>
-        </router-link>
-      </div>
+      <draggable
+        v-model="myArray"
+        group="people"
+        @start="drag = true"
+        @end="drag = false"
+      >
+        <div class="preview">
+          <router-link v-bind:to="'/resume/green'">
+            <div class="preview-wrapper">
+              <img src="../assets/preview/resume-green.png" />
+              <span>green</span>
+            </div>
+          </router-link>
+        </div>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 export default {
   name: "resume-template",
+  components: {
+    draggable,
+  },
 };
 </script>
 
