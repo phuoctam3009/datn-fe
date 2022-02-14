@@ -6,12 +6,15 @@
         :is="$route.params.resumeid"
         :itemSelectedLeft="itemSelectedLeft"
         :itemSelectedRight="itemSelectedRight"
+        :statusSaveResume="saveResume"
+        @getInfoData="getData"
       ></component>
     </div>
     <div class="custom-resume">
       <custom-resume
         @setSelectedLeft="getSelectedLeft"
         @setSelectedRight="getSelectedRight"
+        @setSaveResume="updateSaveResume"
       ></custom-resume>
     </div>
     <!-- <v-btn>Export PDF</v-btn> -->
@@ -22,6 +25,7 @@
 <script>
 import "../resumes/resumes.js";
 import CustomResume from "./custom-resume.vue";
+import { addResume } from "../api/resume/resume";
 export default {
   name: "resume",
   components: {
@@ -36,6 +40,7 @@ export default {
         "Hoạt động",
         "Thành tích",
       ],
+      saveResume: false,
     };
   },
   methods: {
@@ -44,6 +49,25 @@ export default {
     },
     getSelectedRight(list) {
       this.itemSelectedRight = list;
+    },
+    updateSaveResume(val) {
+      this.saveResume = val;
+    },
+    getData(data) {
+      var payloadRequest = {
+        userId: this.$store.state.auth.user.id,
+        data: JSON.stringify(data),
+        title: data.title,
+      };
+      addResume(payloadRequest)
+        .then((response) => {
+          this.$swal("Thành công", response.data, "success").then(() => {
+            this.$router.push("/profile");
+          });
+        })
+        .catch((error) => {
+          this.$swal("Thất bại", error.response.data.error, "error");
+        });
     },
   },
 };

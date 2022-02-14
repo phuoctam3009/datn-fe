@@ -1,6 +1,6 @@
 <template>
   <div class="page page-sections">
-    <v-card class="mx-auto card-filter">
+    <!-- <v-card class="mx-auto card-filter">
       <v-form v-model="valid" style="border: 1px solid">
         <v-container>
           <v-row>
@@ -41,7 +41,7 @@
           </v-row>
         </v-container>
       </v-form>
-    </v-card>
+    </v-card> -->
     <div class="center">
       <v-card class="top-job">
         <div class="header-content">
@@ -100,152 +100,73 @@
         </v-row>
         <div>
           <v-pagination
-            v-model="page"
-            :length="totalPages"
+            v-model="pageJob"
+            :length="totalPagesJob"
             circle
             class="paging"
           ></v-pagination>
         </div>
       </v-card>
+      <v-card class="top-job">
+        <div class="header-content">
+          <h2 class="box-title">Danh sách công ty</h2>
+        </div>
+        <v-row>
+          <v-col
+            v-for="(item, index) in listCompany"
+            :key="index"
+            cols="12"
+            md="4"
+            class="info-job"
+          >
+            <img class="icon-company" :src="item.background" />
+            <v-col>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <h3 v-bind="attrs" v-on="on" class="text-truncate">
+                    <router-link target="_blank">
+                      {{ item.companyName }}
+                    </router-link>
+                  </h3>
+                </template>
+                <span>{{ item.companyName }}</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <route-link
+                    :to="{
+                      name: 'CompanyDetail',
+                    }"
+                  >
+                    <span
+                      v-bind="attrs"
+                      v-on="on"
+                      class="d-inline-block text-truncate"
+                      style="max-width: 300px"
+                    >
+                      {{ item.companyName }}
+                    </span>
+                  </route-link>
+                </template>
+                <span>{{ item.companyName }}</span>
+              </v-tooltip>
+            </v-col>
 
-      <v-sheet class="mx-auto" elevation="8" max-width="1140">
-        <v-slide-group
-          v-model="model"
-          class="pa-4"
-          active-class="success"
-          show-arrows
-        >
-          <!-- Ads job -->
-          <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
-            <v-card
-              :color="active ? undefined : 'grey lighten-1'"
-              class="ma-3"
-              height="200"
-              width="305"
-              @click="toggle"
-            >
-              <v-row class="fill-height" align="center" justify="center">
-                <v-scale-transition>
-                  <v-icon v-if="active" color="white" size="30"></v-icon>
-                </v-scale-transition>
-              </v-row>
-            </v-card>
-          </v-slide-item>
-        </v-slide-group>
-      </v-sheet>
-      <v-row>
-        <v-col>
-          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>
-
-            <v-card-title>Việc làm lương cao</v-card-title>
-
-            <v-card-text>
-              <div v-for="index in 10" :key="index" class="specific-job">
-                <v-row>
-                  <img
-                    class="icon-company"
-                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
-                  />
-                  <v-col>
-                    <h3 class="name-job">Lập trình viên Javascript</h3>
-                    <span class="name-company">Công ty FPT</span>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-chip>10-15 triệu</v-chip>
-                  <v-chip>Remote</v-chip>
-                </v-row>
-                <v-divider class="mx-4"></v-divider>
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>
-
-            <v-card-title>Công việc remote</v-card-title>
-
-            <v-card-text>
-              <div v-for="index in 10" :key="index" class="specific-job">
-                <v-row>
-                  <img
-                    class="icon-company"
-                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
-                  />
-                  <v-col>
-                    <h3 class="name-job">Lập trình viên Javascript</h3>
-                    <span class="name-company">Công ty FPT</span>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-chip>10-15 triệu</v-chip>
-                  <v-chip>Remote</v-chip>
-                </v-row>
-                <v-divider class="mx-4"></v-divider>
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>
-
-            <v-card-title>Tuyển thực tập sinh</v-card-title>
-
-            <v-card-text>
-              <div v-for="index in 10" :key="index" class="specific-job">
-                <v-row>
-                  <img
-                    class="icon-company"
-                    src="https://cdn11.bigcommerce.com/s-pl8vz9wzk5/product_images/uploaded_images/richloomcontract-woodblues.jpg?t=1578333795&_ga=2.211657687.376859109.1578324369-774153706.1570131906"
-                  />
-                  <v-col>
-                    <h3 class="name-job">Lập trình viên Javascript</h3>
-                    <span class="name-company">Công ty FPT</span>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-chip>10-15 triệu</v-chip>
-                  <v-chip>Remote</v-chip>
-                </v-row>
-                <v-divider class="mx-4"></v-divider>
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="deep-purple lighten-2" text> Xem thêm </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+            <v-row>
+              <v-chip>10-15 triệu</v-chip>
+              <v-chip>Remote</v-chip>
+            </v-row>
+          </v-col>
+        </v-row>
+        <div>
+          <v-pagination
+            v-model="pageCom"
+            :length="totalPagesCom"
+            circle
+            class="paging"
+          ></v-pagination>
+        </div>
+      </v-card>
     </div>
   </div>
 </template>
@@ -265,6 +186,7 @@ import GlobalMethods from "@/helpers/global-methods";
 import Footer from "@/components/main/footer";
 import Statistic from "@/components/main/statistic";
 import { listRecruitments } from "../api/recruitments/recruitments";
+import { getAllCompany } from "../api/company/company";
 
 export default {
   name: "Home",
@@ -279,29 +201,17 @@ export default {
   data() {
     return {
       currentScrollTop: 0,
-      page: 1,
-      //API get info job
-      dashboardsInfo: [
-        {
-          content: "Jobs",
-          amount: "6890",
-        },
-        {
-          content: "Members",
-          amount: "1200",
-        },
-        {
-          content: "Resume",
-          amount: "36800",
-        },
-        {
-          content: "Company",
-          amount: "15400",
-        },
-      ],
-      totalPages: 0,
+      pageJob: 1,
+      totalPagesJob: 0,
+      pageCom: 1,
+      totalPagesCom: 0,
       listJobHot: [],
-      queryParams: {
+      listCompany: [],
+      queryParamsJob: {
+        page: 1,
+        size: 12,
+      },
+      queryParamsCom: {
         page: 1,
         size: 12,
       },
@@ -312,12 +222,23 @@ export default {
   },
   methods: {
     getList() {
-      console.log(this.queryParams);
-      listRecruitments(this.queryParams).then((response) => {
+      this.getRecruitments();
+      this.getCompanies();
+    },
+    getRecruitments() {
+      listRecruitments(this.queryParamsJob).then((response) => {
         if (response.status == 200) {
           this.listJobHot = response.data.content;
-          this.totalPages = response.data.totalPages;
-          console.log(this.listJobHot);
+          this.totalPagesJob = response.data.totalPages;
+        }
+      });
+    },
+    getCompanies() {
+      getAllCompany(this.queryParamsCom).then((response) => {
+        if (response.status == 200) {
+          this.listCompany = response.data.content;
+          this.totalPagesCom = response.data.totalPages;
+          console.log("list company", this.listCompany);
         }
       });
     },
@@ -359,7 +280,6 @@ export default {
     },
     detailJob(idJob) {
       router;
-      console.log("detail job", idJob);
     },
 
     ...GlobalMethods,
@@ -368,9 +288,13 @@ export default {
     currentScrollTop(top) {
       this.handleScrollChange(top);
     },
-    page(value) {
-      this.queryParams.page = value ? value : 1;
-      this.getList();
+    pageJob(value) {
+      this.queryParamsJob.page = value ? value : 1;
+      this.getRecruitments();
+    },
+    pageCom(value) {
+      this.queryParamsCom.page = value ? value : 1;
+      this.getCompanies();
     },
   },
 

@@ -1,5 +1,12 @@
 <template>
   <div class="resume">
+    <div
+      class="resume-title"
+      contenteditable=""
+      @blur="onInput($event, 'title')"
+    >
+      {{ title }}
+    </div>
     <div class="leftCol m_box" ref="leftCol">
       <div class="shadow"></div>
       <div class="heading" id="myselfpic"></div>
@@ -131,6 +138,17 @@
                 v-for="(hobby, index) in item.items"
                 :key="index"
               >
+                <!-- <div class="btn-item">
+                  <v-btn color="success" @click="addItem(itemsRight[key])"
+                    >Thêm</v-btn
+                  >
+                  <v-btn
+                    color="error"
+                    @click="removeItem(itemsRight[key], index)"
+                    v-if="item.items.length > 1"
+                    >Xóa</v-btn
+                  >
+                </div> -->
                 -
                 <span
                   contenteditable=""
@@ -197,10 +215,20 @@
             >
               <div
                 class="block"
-                v-for="(item, index) in item.items"
+                v-for="(data, index) in item.items"
                 :key="index"
               >
-                <div class="block-helper"></div>
+                <div class="btn-item">
+                  <v-btn color="success" @click="addItem(itemsRight[key])"
+                    >Thêm</v-btn
+                  >
+                  <v-btn
+                    color="error"
+                    @click="removeItem(itemsRight[key], index)"
+                    v-if="item.items.length > 1"
+                    >Xóa</v-btn
+                  >
+                </div>
                 <h3
                   contenteditable
                   class="headline"
@@ -212,7 +240,7 @@
                     )
                   "
                 >
-                  {{ item.position }}
+                  {{ data.position }}
                 </h3>
                 <h4
                   contenteditable
@@ -223,7 +251,7 @@
                     )
                   "
                 >
-                  {{ item.nameCompany }}
+                  {{ data.nameCompany }}
                 </h4>
                 <div
                   contenteditable
@@ -235,7 +263,7 @@
                     )
                   "
                 >
-                  {{ item.timeperiod }}
+                  {{ data.timeperiod }}
                 </div>
                 <p
                   contenteditable
@@ -247,7 +275,7 @@
                     )
                   "
                 >
-                  {{ item.description }}
+                  {{ data.description }}
                 </p>
               </div>
             </draggable>
@@ -268,10 +296,20 @@
             >
               <div
                 class="block"
-                v-for="(item, index) in item.items"
+                v-for="(data, index) in item.items"
                 :key="index"
               >
-                <div class="block-helper"></div>
+                <div class="btn-item">
+                  <v-btn color="success" @click="addItem(itemsRight[key])"
+                    >Thêm</v-btn
+                  >
+                  <v-btn
+                    color="error"
+                    @click="removeItem(itemsRight[key], index)"
+                    v-if="item.items.length > 1"
+                    >Xóa</v-btn
+                  >
+                </div>
                 <h3
                   contenteditable
                   class="headline"
@@ -286,7 +324,7 @@
                     )
                   "
                 >
-                  {{ item.nameUniversity }}
+                  {{ data.nameUniversity }}
                 </h3>
                 <h4
                   contenteditable
@@ -297,7 +335,7 @@
                     )
                   "
                 >
-                  {{ item.degree }}
+                  {{ data.degree }}
                 </h4>
                 <div
                   contenteditable
@@ -309,7 +347,7 @@
                     )
                   "
                 >
-                  {{ item.timeperiod }}
+                  {{ data.timeperiod }}
                 </div>
                 <p
                   contenteditable
@@ -321,7 +359,7 @@
                     )
                   "
                 >
-                  {{ item.description }}
+                  {{ data.description }}
                 </p>
               </div>
             </draggable>
@@ -342,10 +380,20 @@
             >
               <div
                 class="block"
-                v-for="(item, index) in item.items"
+                v-for="(data, index) in item.items"
                 :key="index"
               >
-                <div class="block-helper"></div>
+                <div class="btn-item">
+                  <v-btn color="success" @click="addItem(itemsRight[key])"
+                    >Thêm</v-btn
+                  >
+                  <v-btn
+                    color="error"
+                    @click="removeItem(itemsRight[key], index)"
+                    v-if="item.items.length > 1"
+                    >Xóa</v-btn
+                  >
+                </div>
                 <h3
                   contenteditable
                   class="headline"
@@ -357,7 +405,7 @@
                     )
                   "
                 >
-                  {{ item.role }}
+                  {{ data.role }}
                 </h3>
                 <h4
                   contenteditable
@@ -372,7 +420,7 @@
                     )
                   "
                 >
-                  {{ item.organizationName }}
+                  {{ data.organizationName }}
                 </h4>
                 <div
                   contenteditable
@@ -384,7 +432,7 @@
                     )
                   "
                 >
-                  {{ item.timeperiod }}
+                  {{ data.timeperiod }}
                 </div>
                 <p
                   contenteditable
@@ -396,7 +444,7 @@
                     )
                   "
                 >
-                  {{ item.description }}
+                  {{ data.description }}
                 </p>
               </div>
             </draggable>
@@ -417,10 +465,20 @@
             >
               <div
                 class="block"
-                v-for="(item, index) in item.items"
+                v-for="(data, index) in item.items"
                 :key="index"
               >
-                <div class="block-helper"></div>
+                <div class="btn-item">
+                  <v-btn color="success" @click="addItem(itemsRight[key])"
+                    >Thêm</v-btn
+                  >
+                  <v-btn
+                    color="error"
+                    @click="removeItem(itemsRight[key], index)"
+                    v-if="item.items.length > 1"
+                    >Xóa</v-btn
+                  >
+                </div>
                 <h3
                   contenteditable
                   class="headline"
@@ -432,7 +490,7 @@
                     )
                   "
                 >
-                  {{ item.timeperiod }} :
+                  {{ data.timeperiod }} :
                 </h3>
                 <p
                   contenteditable
@@ -444,7 +502,7 @@
                     )
                   "
                 >
-                  {{ item.description }}
+                  {{ data.description }}
                 </p>
               </div>
             </draggable>
@@ -468,6 +526,11 @@ export default Vue.component(name, getVueOptions(name));
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .resume {
+  .resume-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
   //   font-family:'Roboto' !important;
   //   height: auto;
   position: relative;
@@ -674,6 +737,7 @@ a {
   margin-top: 12px;
   margin-bottom: 6px;
   color: #3f3d3c;
+  display: relative;
 }
 .c {
   clear: both;
@@ -741,6 +805,14 @@ h4 {
   float: right;
   display: flex;
   flex-direction: column;
+  .add-item {
+    display: none;
+  }
+  .item-right:hover {
+    .add-item {
+      display: inline-block;
+    }
+  }
   .experience {
     margin-top: 40px;
   }
@@ -756,11 +828,21 @@ h4 {
     position: relative;
     background-color: #ffffff;
     padding: 20px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     display: inline-block;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
       0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    .btn-item {
+      position: absolute;
+      top: -20px;
+      right: -5px;
+      display: none;
+      button {
+        margin-right: 10px;
+      }
+    }
+
     .headline {
       font-weight: 300;
       display: block;
@@ -823,6 +905,11 @@ h4 {
         border-bottom-style: none;
         border-bottom-style: none;
       }
+    }
+  }
+  .block:hover {
+    .btn-item {
+      display: inline-block;
     }
   }
 }

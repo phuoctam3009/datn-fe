@@ -22,7 +22,8 @@ function getVueOptions(nameTemplate) {
         },
         data() {
             return {
-                person: yaml.load(PERSON),
+                title: yaml.load(PERSON).title,
+                person: yaml.load(PERSON).person,
                 itemsRight: [
                     {
                         name: "Kinh nghiệm làm việc",
@@ -68,13 +69,15 @@ function getVueOptions(nameTemplate) {
                         items: yaml.load(PERSON).hobbies,
                         active: true
                     },
-                ]
+                ],
+                saveResume: false
 
                 // terms: terms,
             };
         },
-        props: ['itemSelectedLeft', 'itemSelectedRight'],
+        props: ['itemSelectedLeft', 'itemSelectedRight', 'statusSaveResume'],
         mounted() {
+            console.log(this.person);
         },
         computed: {
             lang() {
@@ -125,10 +128,23 @@ function getVueOptions(nameTemplate) {
         methods: {
             onInput(event, key) {
                 _.set(this._data, key, event.target.innerText);
+            },
+            addItem(itemCategory) {
+
+                var temp = this.itemsRight.find(item => item.className == itemCategory.className).items;
+                if (temp.length > 0) {
+                    this.itemsRight.find(item => item.className == itemCategory.className).items.push({ ...temp[0] });
+                }
+            },
+            removeItem(itemCategory, index) {
+                var temp = this.itemsRight.find(item => item.className == itemCategory.className).items.filter((data, i) => i != index)
+                console.log('temp', temp);
+                if (temp.length >= 1) {
+                    this.itemsRight.find(item => item.className == itemCategory.className).items = temp;
+                }
             }
         },
         watch: {
-
             itemSelectedLeft: {
                 handler: function (val, oldVal) {
                     if (val.length == 0) {
@@ -163,6 +179,22 @@ function getVueOptions(nameTemplate) {
                                 this.itemsRight[i].active = false;
                             }
                         }
+                    }
+                },
+                deep: true
+            },
+            statusSaveResume: {
+                handler: function (val, oldVal) {
+                    console.log(val);
+                    if (val == true) {
+                        var data = {
+                            person: this.person,
+                            itemsLeft: this.itemsLeft,
+                            itemsRight: this.itemsRight,
+                            title: this.title
+                        }
+                        this.$emit("getInfoData", data);
+
                     }
                 },
                 deep: true

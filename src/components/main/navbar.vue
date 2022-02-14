@@ -34,9 +34,34 @@
           </li>
         </v-row>
       </div>
-      <div v-if="currentUser" class="navbar-nav ml-auto">
-        <v-row>
-          <li class="nav-item">
+      <div v-if="currentUser" class="navbar-nav mr-8">
+        <v-menu top :close-on-click="closeOnClick" offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            Xin chào, {{ currentUser.username }}
+            <v-icon v-bind="attrs" v-on="on" small>mdi-arrow-down</v-icon>
+          </template>
+
+          <v-list>
+            <v-list-item>
+              <router-link to="/profile" style="text-decoration: none">
+                Thông tin cá nhân
+              </router-link>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title>
+                <a
+                  class="nav-link"
+                  href
+                  @click.prevent="logOut"
+                  style="text-decoration: none"
+                >
+                  Đăng xuất
+                </a></v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <!-- <li class="nav-item">
             <router-link to="/profile" style="text-decoration: none">
               <font-awesome-icon icon="user" />
               {{ currentUser.username }}
@@ -46,8 +71,7 @@
             <a class="nav-link" href @click.prevent="logOut">
               <font-awesome-icon icon="sign-out-alt" /> Đăng xuất
             </a>
-          </li>
-        </v-row>
+          </li> -->
       </div>
     </ul>
   </v-app-bar>

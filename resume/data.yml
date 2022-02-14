@@ -1,19 +1,26 @@
 /* #*/ export const PERSON = `
 # Any fields left unchanged, please delete so your resume is fully yours!
 
-information: Thông tin liên hệ
+title: 'Tiêu đề CV'
 
-name: John Doe
-
-about: Hi, my name is John Doe. I'm just about the most boring type of person you could
+person:
+  name: John Doe
+  about: Hi, my name is John Doe. I'm just about the most boring type of person you could
        possibly imagine. I like collecting leaves from the tree in my back yard and documenting
-       each time I eat a peanut that is non-uniform. I am not a robot. Please hire me.
-position: Software Developer
-
-birth:
-  year: 1990
-  location: New York
-
+       each time I eat a peanut that is non-uniform. I am not a robot. Please hire me. 
+  position: Software Developer
+  contact:
+    email: john.doe@email.com
+    phone: 0123 456789
+    street: 1234 Broadway
+    city: New York
+    website: johndoe.com
+    github: johnyD
+  birth:
+    year: 1990
+    location: New York  
+  information: Thông tin liên hệ
+  
 # you may add more experiences by duplicating the template
 
 experience:
@@ -78,12 +85,12 @@ hobbies:
 - name: Hobby 1
 - name: Hobby 2
 
-projects:
-- name: best-resume-ever
-  platform: Vue
-  timeperiod: February 2016
-  description: 👔 💼 Build fast 🚀 and easy multiple beautiful resumes and create your best CV ever! Made with Vue and LESS.
-  url: https://github.com/salomonelli/best-resume-ever
+# projects:
+# - name: best-resume-ever
+#   platform: Vue
+#   timeperiod: February 2016
+#   description: 👔 💼 Build fast 🚀 and easy multiple beautiful resumes and create your best CV ever! Made with Vue and LESS.
+#   url: https://github.com/salomonelli/best-resume-ever
 
 # optional, not all resume templates have hobbies included
 # hobbies:
@@ -95,18 +102,10 @@ projects:
 #   iconClass: fa fa-pencil
 #   url: https://example.com
 
-contributions:
-- name: best-resume-ever
-  description: 👔 💼 Build fast 🚀 and easy multiple beautiful resumes.
-  url: https://github.com/salomonelli/best-resume-ever
+# contributions:
+# - name: best-resume-ever
+#   description: 👔 💼 Build fast 🚀 and easy multiple beautiful resumes.
+#   url: https://github.com/salomonelli/best-resume-ever
 
-contact:
-  email: john.doe@email.com
-  phone: 0123 456789
-  street: 1234 Broadway
-  city: New York
-  website: johndoe.com
-  github: johnyD
-# en, de, fr, pt, ca, cn, it, es, th, pt-br, ru, sv, id, hu, pl, ja, ka, nl, he, zh-tw, lt, ko, el, nb-no
-lang: en
+
 `

@@ -33,7 +33,9 @@
         </v-card>
       </li>
     </ul>
-    <v-btn elevation="2" block color="secondary">Lưu hồ sơ</v-btn>
+    <v-btn elevation="2" block color="secondary" @click="saveResume"
+      >Lưu hồ sơ</v-btn
+    >
   </div>
 </template>
 <script>
@@ -64,6 +66,11 @@ export default {
         this.$emit("setSelectedRight", val);
       },
       deep: true,
+    },
+  },
+  methods: {
+    saveResume() {
+      this.$emit("setSaveResume", true);
     },
   },
 };
