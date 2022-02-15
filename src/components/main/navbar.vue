@@ -24,12 +24,12 @@
         <v-row>
           <li class="nav-item">
             <router-link to="/login" style="text-decoration: none">
-              <v-btn color="primary" depressed>Đăng nhập</v-btn>
+              <v-btn style="background: #29aafe; color: white" depressed>Đăng nhập</v-btn>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/register" style="text-decoration: none">
-              <v-btn color="green">Đăng ký</v-btn>
+              <v-btn color="green" dark>Đăng ký</v-btn>
             </router-link>
           </li>
         </v-row>
