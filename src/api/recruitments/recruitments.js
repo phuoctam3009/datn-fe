@@ -29,3 +29,11 @@ export function getRecruitmentsReference(recruitmentId) {
         method: "get",
     })
 }
+
+export function updateStatusRecruitment(query) {
+    return request({
+        url: "/recruitment/status",
+        method: "put",
+        params: query
+    })
+}
