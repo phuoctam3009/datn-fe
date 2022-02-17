@@ -96,7 +96,7 @@
                 class="white--text"
                 target="_blank"
                 href="https://gaiyaobed.com.ng"
-                >gaiyadev</a
+                >TAMNP</a
               >
             </span>
           </strong>
@@ -118,15 +118,15 @@ export default {
       {
         title: "Quản lý nhà tuyển dụng",
         icon: "perm_identity",
-        link: "/admin/user",
+        link: "/admin/company",
       },
       {
         title: "Quản lý tin tuyển dụng",
         icon: "reorder",
-        link: "/admin/tables",
+        link: "/admin/recruitment",
       },
-      { title: "Quản lý ứng viên", icon: "mdi-flag", link: "/admin/profile" },
-      { title: "Quản lý user", icon: "mdi-flag", link: "/admin/profile" },
+      { title: "Quản lý ứng viên", icon: "mdi-flag", link: "/admin/candidate" },
+      { title: "Quản lý user", icon: "mdi-flag", link: "/admin/user" },
     ],
     sideItems: [
       {

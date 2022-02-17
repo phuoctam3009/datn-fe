@@ -29,10 +29,10 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "@/views/dashboard/Index"),
       children: [
         {
-          path: "profile",
-          name: "Profile",
+          path: "company",
+          name: "company",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/dashboard/Profile"),
+            import(/* webpackChunkName: "about" */ "@/views/dashboard/company"),
           meta: { transition: "zoom" }
         },
         {
@@ -40,10 +40,10 @@ export default new Router({
           component: () => import("@/views/dashboard/Home")
         },
         {
-          path: "tables",
-          name: "Table",
+          path: "recruitment",
+          name: "recruitment",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/dashboard/Tables"),
+            import(/* webpackChunkName: "about" */ "@/views/dashboard/recruitment"),
           meta: { transition: "zoom" }
         },
         {
@@ -54,11 +54,11 @@ export default new Router({
           meta: { transition: "zoom" }
         },
         {
-          path: "change_password",
-          name: "ChangePassword",
+          path: "candidate",
+          name: "candidate",
           component: () =>
             import(
-              /* webpackChunkName: "about" */ "@/views/dashboard/ChangePassword"
+              /* webpackChunkName: "about" */ "@/views/dashboard/candidate"
             ),
           meta: { transition: "zoom" }
         },

@@ -14,3 +14,11 @@ export function getAllCompany(query) {
         params: query
     });
 }
+
+export function updateStatusCompany(query) {
+    return request({
+        url: "/company/status",
+        method: "put",
+        params: query
+    })
+}
