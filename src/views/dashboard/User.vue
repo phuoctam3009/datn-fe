@@ -330,7 +330,7 @@ export default {
       // this.dialogDelete = true;
       this.$swal
         .fire({
-          title: "Bạn chắc chắn muốn xóa thông tin tuyển dụng này?",
+          title: "Bạn chắc chắn muốn xóa thông tin người dùng này?",
           showDenyButton: true,
           // showCancelButton: true,
           confirmButtonText: "Xóa",

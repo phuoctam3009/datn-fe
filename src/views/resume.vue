@@ -54,12 +54,19 @@ export default {
       this.saveResume = val;
     },
     getData(data) {
-      var payloadRequest = {
-        userId: this.$store.state.auth.user.id,
-        data: JSON.stringify(data),
-        title: data.title,
-      };
-      addResume(payloadRequest)
+      console.log("data", data);
+      var formData = new FormData();
+      formData.append("file", data.image);
+      formData.append("userId", this.$store.state.auth.user.id);
+      formData.append("data", JSON.stringify(data));
+      formData.append("file", data.image);
+      // var payloadRequest = {
+      //   userId: this.$store.state.auth.user.id,
+      //   data: JSON.stringify(data),
+      //   title: data.title,
+      //   file: data.image,
+      // };
+      addResume(formData)
         .then((response) => {
           this.$swal("Thành công", response.data, "success").then(() => {
             this.$router.push("/profile");

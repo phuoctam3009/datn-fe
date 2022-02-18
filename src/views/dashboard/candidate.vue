@@ -62,6 +62,7 @@
 
 <script>
 import { listCandidates } from "@/api/candidate/candidate";
+import { deleteUser } from "@/api/user/user";
 import moment from "moment";
 
 export default {
@@ -182,7 +183,6 @@ export default {
             // this.$swal.fire("Saved!", "", "success");
             updateStatusRecruitment({ status, id: item.id }).then(
               (response) => {
-                console.log("response", response);
                 this.showToast("success", response.data);
                 this.getRecruitments();
               }
@@ -201,12 +201,9 @@ export default {
     },
 
     deleteItem(item) {
-      this.editedIndex = this.data.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
       this.$swal
         .fire({
-          title: "Bạn chắc chắn muốn xóa thông tin tuyển dụng này?",
+          title: "Bạn chắc chắn muốn xóa thông tin ứng viên này?",
           showDenyButton: true,
           // showCancelButton: true,
           confirmButtonText: "Xóa",
@@ -215,9 +212,16 @@ export default {
         .then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            this.$swal.fire("Saved!", "", "success");
-          } else if (result.isDenied) {
-            this.$swal.fire("Changes are not saved", "", "info");
+            deleteUser(item.user.id).then(
+              (response) => {
+                this.showToast("success", response.data);
+                this.getCandidates();
+              },
+              (error) => {
+                this.showToast("error", error.response.data.message);
+                this.getCandidates();
+              }
+            );
           }
         });
     },

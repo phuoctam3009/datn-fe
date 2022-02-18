@@ -66,21 +66,21 @@ awards:
 # skill level goes from 0 to 100
 skills:
 - name: HTML5
-  level: 99
+  level: 4
 - name: CSS3
-  level: 95
+  level: 4
 - name: JavaScript
-  level: 97
+  level: 4
 - name: Node.js
-  level: 93
+  level: 4
 - name: Angular 2
-  level: 60
+  level: 4
 - name: TypeScript
-  level: 80
+  level: 4
 - name: ES.Next
-  level: 70
+  level: 4
 - name: Docker
-  level: 99
+  level: 4
 hobbies:
 - name: Hobby 1
 - name: Hobby 2

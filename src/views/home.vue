@@ -92,13 +92,13 @@
               </v-tooltip>
             </v-col>
 
-            <v-row>
-              <v-chip>10-15 triệu</v-chip>
-              <v-chip>Remote</v-chip>
+            <v-row no-gutters>
+              <v-chip>{{ item.salary }}</v-chip>
+              <v-chip>Đà Nẵng</v-chip>
             </v-row>
           </v-col>
         </v-row>
-        <div>
+        <div style="margin-top: 10px">
           <v-pagination
             v-model="pageJob"
             :length="totalPagesJob"
@@ -228,6 +228,7 @@ export default {
     getRecruitments() {
       listRecruitments(this.queryParamsJob).then((response) => {
         if (response.status == 200) {
+          console.log("response", response.data.content);
           this.listJobHot = response.data.content;
           this.totalPagesJob = response.data.totalPages;
         }

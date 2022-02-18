@@ -21,7 +21,7 @@
       </v-row>
     </v-card>
     <div class="content-company">
-      <v-tabs centered>
+      <v-tabs class="tabs">
         <v-tab>Giới thiệu công ty</v-tab>
         <v-tab>Tuyển dụng</v-tab>
       </v-tabs>
@@ -164,6 +164,9 @@ export default {
 
 .content-company {
   margin-top: 140px;
+  .tabs {
+    margin-left: 400px;
+  }
 }
 .intro-company {
   padding-left: 10px;

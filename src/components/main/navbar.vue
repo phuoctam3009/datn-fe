@@ -24,7 +24,9 @@
         <v-row>
           <li class="nav-item">
             <router-link to="/login" style="text-decoration: none">
-              <v-btn style="background: #29aafe; color: white" depressed>Đăng nhập</v-btn>
+              <v-btn style="background: #29aafe; color: white" depressed
+                >Đăng nhập</v-btn
+              >
             </router-link>
           </li>
           <li class="nav-item">
@@ -35,7 +37,7 @@
         </v-row>
       </div>
       <div v-if="currentUser" class="navbar-nav mr-8">
-        <v-menu top :close-on-click="closeOnClick" offset-y>
+        <!-- <v-menu top :close-on-click="closeOnClick" offset-y>
           <template v-slot:activator="{ on, attrs }">
             Xin chào, {{ currentUser.username }}
             <v-icon v-bind="attrs" v-on="on" small>mdi-arrow-down</v-icon>
@@ -58,6 +60,24 @@
                   Đăng xuất
                 </a></v-list-item-title
               >
+            </v-list-item>
+          </v-list>
+        </v-menu> -->
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn icon dark v-on="on">
+              <v-icon style="color: green">account_circle</v-icon>
+            </v-btn>
+            <!-- <v-btn color="primary" dark v-on="on">Dropdown</v-btn> -->
+          </template>
+          <v-list>
+            <v-list-item router to="/profile">
+              <v-icon left color="primary">lock</v-icon>
+              <v-list-item-title>Thông tin cá nhân</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-icon left color="primary">settings_power</v-icon>
+              <v-list-item-title @click="logOut">Đăng xuất</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -97,6 +117,18 @@ export default {
   },
   data() {
     return {
+      sideItems: [
+        {
+          title: "Thông tin cá nhân",
+          icon: "lock",
+          link: "/profile",
+        },
+        {
+          title: "Đăng xuất",
+          icon: "settings_power",
+          link: "",
+        },
+      ],
       scrolled: false,
       links,
       menus,

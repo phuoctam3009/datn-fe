@@ -23,7 +23,14 @@ import {
   faSignInAlt,
   faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons';
+import Cloudinary from 'cloudinary-vue';
+
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+Vue.use(Cloudinary, {
+  configuration: {
+    cloudName: "degh5xw5d"
+  }
+});
 Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);

@@ -5,6 +5,8 @@ import {
 import draggable from "vuedraggable";
 import nestedDraggable from "./infra/nested";
 import _ from 'lodash';
+import PictureInput from 'vue-picture-input'
+
 
 
 
@@ -18,12 +20,16 @@ function getVueOptions(nameTemplate) {
         name: nameTemplate,
         components: {
             draggable,
-            nestedDraggable
+            nestedDraggable,
+            PictureInput
         },
         data() {
             return {
+                rating: 4.5,
                 title: yaml.load(PERSON).title,
                 person: yaml.load(PERSON).person,
+                avatar: require('../../resume/id.jpg'),
+                avatarTemp: "",
                 itemsRight: [
                     {
                         name: "Kinh nghiệm làm việc",
@@ -70,14 +76,15 @@ function getVueOptions(nameTemplate) {
                         active: true
                     },
                 ],
-                saveResume: false
+                saveResume: false,
+                dialogAvatar: false,
 
                 // terms: terms,
             };
         },
         props: ['itemSelectedLeft', 'itemSelectedRight', 'statusSaveResume'],
         mounted() {
-            console.log(this.person);
+            this.avatarTemp = this.avatar;
         },
         computed: {
             lang() {
@@ -138,10 +145,40 @@ function getVueOptions(nameTemplate) {
             },
             removeItem(itemCategory, index) {
                 var temp = this.itemsRight.find(item => item.className == itemCategory.className).items.filter((data, i) => i != index)
-                console.log('temp', temp);
                 if (temp.length >= 1) {
                     this.itemsRight.find(item => item.className == itemCategory.className).items = temp;
                 }
+            },
+            addItemLeft(itemCategory) {
+
+                var temp = this.itemsLeft.find(item => item.className == itemCategory.className).items;
+                if (temp.length > 0) {
+                    this.itemsLeft.find(item => item.className == itemCategory.className).items.push({ ...temp[0] });
+                }
+            },
+
+            removeItemLeft(itemCategory, index) {
+                var temp = this.itemsLeft.find(item => item.className == itemCategory.className).items.filter((data, i) => i != index)
+                if (temp.length >= 1) {
+                    this.itemsLeft.find(item => item.className == itemCategory.className).items = temp;
+                }
+            },
+            openDialogAvatar() {
+                this.dialogAvatar = true;
+            },
+            onChange(image) {
+                if (image) {
+                    this.avatarTemp = image
+                } else {
+                    console.log('FileReader API not supported: use the <form>, Luke!')
+                }
+            },
+            saveImage() {
+                this.avatar = this.avatarTemp;
+                this.dialogAvatar = false;
+            },
+            cancelDialog() {
+                this.dialogAvatar = false;
             }
         },
         watch: {
@@ -185,13 +222,13 @@ function getVueOptions(nameTemplate) {
             },
             statusSaveResume: {
                 handler: function (val, oldVal) {
-                    console.log(val);
                     if (val == true) {
                         var data = {
                             person: this.person,
                             itemsLeft: this.itemsLeft,
                             itemsRight: this.itemsRight,
-                            title: this.title
+                            title: this.title,
+                            image: this.avatar
                         }
                         this.$emit("getInfoData", data);
 
