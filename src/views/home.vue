@@ -98,12 +98,12 @@
             </v-row>
           </v-col>
         </v-row>
-        <div style="margin-top: 10px">
+        <div>
           <v-pagination
             v-model="pageJob"
             :length="totalPagesJob"
             circle
-            class="paging"
+            class="paging is-padding"
           ></v-pagination>
         </div>
       </v-card>
@@ -374,7 +374,7 @@ section {
 }
 .center {
   margin: auto;
-  width: 60%;
+  width: 75%;
   padding: 0 15px;
   margin-right: auto;
   margin-left: auto;
@@ -426,7 +426,7 @@ form {
     border-radius: 10px;
   }
   .row {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     margin-left: 15px;
     .v-chip {
       margin-right: 10px;
@@ -442,6 +442,15 @@ form {
 .paging > ul {
   margin: 15px 0;
 }
+
+.paging {
+  padding: 20px 0;
+
+  &.is-padding {
+    margin-top: 40px;
+  }
+}
+
 .v-card__text {
   height: 700px;
   overflow-y: auto;

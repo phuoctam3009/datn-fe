@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <v-card class="mx-auto card-filter">
-      <v-form v-model="valid">
         <v-container>
           <v-row>
             <v-col cols="12" md="4">
@@ -15,7 +14,6 @@
                 dense
               ></v-text-field>
             </v-col>
-
             <v-col cols="12" md="4">
               <v-text-field
                 v-model="lastname"
@@ -26,7 +24,6 @@
                 dense
               ></v-text-field>
             </v-col>
-
             <v-col cols="12" md="4">
               <v-select
                 v-model="test"
@@ -38,12 +35,8 @@
                 :menu-props="{ top: false, offsetY: true }"
               ></v-select>
             </v-col>
-            <v-row class="flex-row-reverse">
-              <v-btn style="margin-right: 20px" color="green">Tìm kiếm </v-btn>
-            </v-row>
           </v-row>
         </v-container>
-      </v-form>
     </v-card>
     <v-layout column>
       <v-flex v-for="(item, i) in itemsJob" :key="i">

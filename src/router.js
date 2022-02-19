@@ -121,7 +121,7 @@ export default new Router({
       component: ManageResume,
     },
     {
-      path: "/company-list",
+      path: "/company",
       name: "CompanyList",
       component: CompanyList,
     },

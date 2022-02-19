@@ -18,9 +18,8 @@
     <ul>
       <li>Ấn trực tiếp vào các phần thông tin để chỉnh sửa</li>
       <li>Bấm nút "Lưu hồ sơ" để lưu thông tin hồ sơ</li>
-      <li>
+      <li>Tích chọn mục bạn muốn hiển thị ra hồ sơ</li>
         <v-card max-width="530" class="card-select">
-          Tích chọn mục bạn muốn hiển thị ra hồ sơ
           <div v-for="(item, index) in leftSide" :key="index">
             <v-checkbox v-model="selectedLeft" :label="item" :value="item">
             </v-checkbox>
@@ -31,7 +30,6 @@
             </v-checkbox>
           </div>
         </v-card>
-      </li>
     </ul>
     <v-btn elevation="2" block color="secondary" @click="saveResume"
       >Lưu hồ sơ</v-btn
