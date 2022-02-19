@@ -718,7 +718,7 @@
             color: #ffffff;
             color: rgba(255, 255, 255, 0.59);
             //background-color: #16151c;
-            background-color: rgb(80,92,105);
+            background-color: rgb(80, 92, 105);
             overflow: hidden;
             display: block;
             color: white;
@@ -729,7 +729,7 @@
             }
 
             a {
-               // color: rgba(255, 255, 255, 0.59);
+                // color: rgba(255, 255, 255, 0.59);
                 color: white;
                 text-decoration: none;
             }
@@ -844,8 +844,10 @@
 
                     .btn-item {
                         position: absolute;
-                        right: 0px;
-                        top: -18px;
+                        /* right: 0px;
+                         top: -18px;*/
+                        right: 50px;
+                        top: -4px;
                         display: none;
 
                         button {
@@ -957,16 +959,16 @@
         color: #3f3d3c;
         //display: relative;
         width: 85%;
-        border-bottom: 4px solid rgb(241,185,156);
+        border-bottom: 4px solid rgb(241, 185, 156);
 
         &.is-not-border {
             border-bottom: unset;
             padding: 5px 10px;
-            background-color: rgb(80,92,105);
+            background-color: rgb(80, 92, 105);
             color: white;
             margin-left: unset;
             width: 90%;
-            border-right: 200px solid rgb(241,185,156);
+            border-right: 200px solid rgb(241, 185, 156);
         }
     }
 
@@ -1223,10 +1225,10 @@
         margin-top: 15px;
     }
 
-   /* .is-line {
-        margin: 0 auto;
-        width: 300px;
-        height: 5px;
-        background: rgb(241,185,156);
-    }*/
+    /* .is-line {
+         margin: 0 auto;
+         width: 300px;
+         height: 5px;
+         background: rgb(241,185,156);
+     }*/
 </style>
