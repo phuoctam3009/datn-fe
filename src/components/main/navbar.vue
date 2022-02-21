@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar max-height="64px">
+  <v-app-bar max-height="64px" style="z-index: 1000">
     <div class="navbar-header">
       <router-link to="/">
         <img

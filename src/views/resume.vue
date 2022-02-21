@@ -54,12 +54,13 @@ export default {
       this.saveResume = val;
     },
     getData(data) {
-      console.log("data", data);
       var formData = new FormData();
       formData.append("file", data.image);
+      formData.append("title", data.title);
       formData.append("userId", this.$store.state.auth.user.id);
+      delete data["image"];
+      delete data["title"];
       formData.append("data", JSON.stringify(data));
-      formData.append("file", data.image);
       // var payloadRequest = {
       //   userId: this.$store.state.auth.user.id,
       //   data: JSON.stringify(data),

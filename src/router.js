@@ -62,27 +62,32 @@ export default new Router({
             ),
           meta: { transition: "zoom" }
         },
+      ]
+    },
+    {
+      path: '/profile',
+      redirect: "/profile/candidate",
+      component: () =>
+        import("@/views/profile/Index"),
+      children: [
         {
-          path: "chrome",
-          name: "Chrome",
+          path: "employee",
+          name: "employee",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/dashboard/Chrome"),
+            import(/* webpackChunkName: "about" */ "@/views/profile/ProfileEmployee"),
           meta: { transition: "zoom" }
         },
         {
-          path: "webstorm",
-          name: "Webstorm",
-          component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/dashboard/Webstorm"),
-          meta: { transition: "zoom" }
+          path: "dashboard",
+          component: () => import("@/views/profile/Home")
         },
         {
-          path: "calender",
-          name: "Calender",
+          path: "candidate",
+          name: "candidate",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/dashboard/Calender"),
+            import(/* webpackChunkName: "about" */ "@/views/profile/candidate/ProfileCandidate"),
           meta: { transition: "zoom" }
-        }
+        },
       ]
     },
     {
@@ -142,10 +147,6 @@ export default new Router({
     {
       path: '/register',
       component: Register
-    },
-    {
-      path: '/profile',
-      component: Profile
     },
     {
       path: '/resume',
