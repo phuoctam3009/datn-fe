@@ -6,6 +6,7 @@
       clipped
       color="grey lighten-4"
       elevation="11"
+      style="margin-top: 64px"
     >
       <v-list text>
         <v-subheader class="primary" color="white--text" elevation="7">
@@ -136,8 +137,12 @@ input::label {
   margin-top: -20px;
 }
 .v-navigation-drawer {
-  .v-navigation-drawer__content {
+  z-index: 1!important;
+
+
+  &__content {
     margin-top: 64px;
   }
 }
+
 </style>

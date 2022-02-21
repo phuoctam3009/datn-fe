@@ -18,7 +18,7 @@
           </v-container>
         </section> -->
 
-        <v-main>
+        <v-main style="margin-top: 64px">
             <router-view/>
         </v-main>
 
