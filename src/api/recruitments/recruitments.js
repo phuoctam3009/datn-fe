@@ -37,3 +37,11 @@ export function updateStatusRecruitment(query) {
         params: query
     })
 }
+
+export function addCvToRecruitment(query) {
+    return request({
+        url: "/recruitment/addResume",
+        method: "post",
+        data: query
+    })
+}

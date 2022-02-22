@@ -99,7 +99,6 @@
 </template>
 
 <script>
-    // import LocaleButton from "../custom/locale-button";
     import Logo from "./logo";
 
     import GlobalComputed from "@/helpers/global-computed";

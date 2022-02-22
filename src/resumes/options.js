@@ -6,6 +6,7 @@ import draggable from "vuedraggable";
 import nestedDraggable from "./infra/nested";
 import _ from 'lodash';
 import PictureInput from 'vue-picture-input'
+import { getResumeById } from '../api/resume/resume'
 
 
 
@@ -25,7 +26,6 @@ function getVueOptions(nameTemplate) {
         },
         data() {
             return {
-                rating: 4.5,
                 title: yaml.load(PERSON).title,
                 person: yaml.load(PERSON).person,
                 avatar: require('../../resume/id.jpg'),
@@ -83,6 +83,22 @@ function getVueOptions(nameTemplate) {
             };
         },
         props: ['itemSelectedLeft', 'itemSelectedRight', 'statusSaveResume'],
+        created() {
+            if (this.$route.params.resumeId) {
+                getResumeById(this.$route.params.resumeId).then(response => {
+                    console.log('response', response);
+                    if (response.status == 200) {
+                        var dataTemp = JSON.parse(response.data.content);
+                        this.title = response.data.title;
+                        this.person = dataTemp.person;
+                        this.itemsRight = dataTemp.itemsRight;
+                        this.itemsLeft = dataTemp.itemsLeft;
+                        this.avatar = response.data.avatar
+                        // this.person
+                    }
+                })
+            }
+        },
         mounted() {
             this.avatarTemp = this.avatar;
         },

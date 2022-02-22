@@ -8,3 +8,18 @@ export function listCandidates(query) {
         params: query,
     });
 }
+
+export function getCandidateById(id) {
+    return request({
+        url: "/candidate/" + id,
+        method: "get",
+    });
+}
+
+export function updateProfileCandidate(data) {
+    return request({
+        url: "/candidate/updateProfile",
+        method: "put",
+        data: data
+    });
+}

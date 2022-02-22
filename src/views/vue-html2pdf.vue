@@ -37,7 +37,6 @@ import PdfContent from "@/components/PdfContent";
 import ControlsContainer from "@/components/ControlsContainer";
 import VueHtml2pdf from "vue-html2pdf";
 // import VueHtml2pdf from "vue-html2pdf-test";
-import { mapFields } from "vuex-map-fields";
 
 export default {
   name: "app",
@@ -52,8 +51,6 @@ export default {
   },
 
   computed: {
-    ...mapFields(["controlValue"]),
-
     htmlToPdfOptions() {
       return {
         margin: 0,
@@ -78,6 +75,9 @@ export default {
           orientation: this.controlValue.pdfOrientation,
         },
       };
+    },
+    controlValue() {
+      return this.$store.state.controlValue;
     },
   },
 
@@ -193,7 +193,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 html,
 body {
   width: 100%;

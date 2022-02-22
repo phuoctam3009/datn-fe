@@ -8,3 +8,17 @@ export function addResume(data) {
         headers: { 'Content-Type': 'multipart/form-data' }
     });
 }
+
+export function getResumes(userId) {
+    return request({
+        url: "/resume/getResume/" + userId,
+        method: "get",
+    })
+}
+
+export function getResumeById(id) {
+    return request({
+        url: "/resume/" + id,
+        method: "get",
+    });
+}

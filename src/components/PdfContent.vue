@@ -26,7 +26,9 @@
         <span class="detail-container">
           <span class="detail-label">Game Replay Link:</span>
 
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a>
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            >https://www.youtube.com/watch?v=dQw4w9WgXcQ</a
+          >
         </span>
       </section>
     </section>
@@ -34,7 +36,13 @@
     <section class="chart-container" v-for="(val, key) in 10" :key="key">
       <h4 class="time">November 11, 2019 1:00 PM - 2:23 PM</h4>
 
-      <apexchart type="area" height="100%" width="100%" :options="chartOptions" :series="series" />
+      <apexchart
+        type="area"
+        height="100%"
+        width="100%"
+        :options="chartOptions"
+        :series="series"
+      />
     </section>
   </section>
 </template>

@@ -15,6 +15,8 @@ import Register from './views/Register.vue';
 import Profile from './views/Profile.vue';
 import ResumeTemplate from './views/resume-template.vue'
 import Resume from './views/resume.vue'
+import MaterialDark from './resumes/material-dark.vue'
+import VueHtml from './views/vue-html2pdf.vue'
 
 Vue.use(Router);
 
@@ -97,8 +99,8 @@ export default new Router({
     },
     {
       path: "/test",
-      name: "JobList1",
-      component: JobList1,
+      name: "VueHtml",
+      component: VueHtml,
     },
     {
       path: "/job-detail/:jobId",
@@ -156,6 +158,11 @@ export default new Router({
       path: '/resume/:resumeid',
       name: 'resume',
       component: Resume
+    },
+    {
+      path: '/resume/material-dark/:resumeId',
+      name: 'resumeDetail',
+      component: MaterialDark
     }
   ],
 });
