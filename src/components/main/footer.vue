@@ -1,7 +1,7 @@
 <template>
-  <v-footer style="background: rgb(96,125,139)" padless>
+  <v-footer style="background: #4ca571" padless>
     <v-row justify="center" no-gutters>
-      <v-col style="color: #29aafe" class="py-4 text-center" cols="12">
+      <v-col style="color: white" class="py-4 text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>by Nguyen Phuoc Tam</strong>
       </v-col>
     </v-row>
@@ -44,10 +44,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #00b14f;
     line-height: 1.6rem;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     padding: 2rem 0;
   }
