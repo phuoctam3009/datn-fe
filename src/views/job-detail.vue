@@ -36,6 +36,7 @@
             <v-dialog v-model="dialog" width="800px">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
+                  v-show="!isApply"
                   dark
                   style="float: right"
                   color="green"
@@ -44,6 +45,7 @@
                   <v-icon left dark> mdi-send</v-icon>
                   Ứng tuyển
                 </v-btn>
+                <v-btn v-show="isApply" disabled>Đã ứng tuyển</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -57,7 +59,7 @@
                       style="align-items: center"
                     >
                       <v-col cols="1">
-                        <v-radio :value="item.id"></v-radio>
+                        <v-radio :value="item.id" selected></v-radio>
                       </v-col>
                       <v-col cols="4">
                         <v-img
@@ -365,6 +367,7 @@ import {
   getRecruitmentReferenceByCompanyId,
   getRecruitmentsReference,
   addCvToRecruitment,
+  checkCvIsApplied,
 } from "../api/recruitments/recruitments";
 import { getResumes } from "../api/resume/resume";
 import moment from "moment";
@@ -382,11 +385,13 @@ export default {
       dialog: false,
       resumesInfo: [],
       radioGroup: null,
+      isApply: false,
     };
   },
   created() {
     // this.data = this.$route.params.jobInfo;
     this.getJobInfo(this.$route.params.jobId);
+    this.checkApply();
   },
   computed: {
     currentUser() {
@@ -418,6 +423,14 @@ export default {
         }
       });
     },
+    checkApply() {
+      checkCvIsApplied(this.$route.params.jobId).then((response) => {
+        if (response.status == 200) {
+          this.isApply = response.data;
+          console.log(this.isApply);
+        }
+      });
+    },
     handleScroll(refName) {
       var element = this.$refs[refName];
       var top = element.$refs.link.offsetTop;
@@ -443,16 +456,27 @@ export default {
     },
     applyResume() {
       console.log(this.radioGroup);
+      if (this.radioGroup == null) {
+        this.$swal("Thất bại", "Vui lòng chọn CV", "error");
+        return "";
+      }
       var data = {
         resumeId: this.radioGroup,
         recruitmentId: this.$route.params.jobId,
       };
       addCvToRecruitment(data).then(
         (response) => {
-          console.log("response", response);
+          if (response.status == 200) {
+            this.$swal("Thành công", "Ứng tuyển CV thành công", "success").then(
+              () => {
+                this.$router.push("/candidate/profile");
+              }
+            );
+          }
         },
         (error) => {
-          console.log("error", error.response);
+          this.$swal("Thất bại", error.response.data.message, "error");
+          return "";
         }
       );
     },

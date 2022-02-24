@@ -1,82 +1,92 @@
 <template>
   <div class="main">
-    <v-card class="mx-auto card-filter">
-        <v-container>
-          <v-row>
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="firstname"
-                :rules="nameRules"
-                outlined
-                label="Từ khóa"
-                medium
-                required
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                outlined
-                label="Địa điểm"
-                required
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-select
-                v-model="test"
-                :items="itemCategories"
-                label="Vị trí"
-                dense
-                outlined
-                clearable
-                :menu-props="{ top: false, offsetY: true }"
-              ></v-select>
-            </v-col>
-          </v-row>
-        </v-container>
+    <v-card class="card-filter">
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="firstname"
+              :rules="nameRules"
+              outlined
+              label="Tên công ty"
+              medium
+              required
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card>
-    <v-layout column>
-      <v-flex v-for="(item, i) in itemsJob" :key="i">
-        <v-card class="mx-auto pa-20" max-width="1200" hover>
-          <div class="item-job">
-            <v-row>
-              <img
-                src="https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE"
-                width="100"
-                height="100"
-              />
-              <v-col cols="8">
-                <h2 class="company-name">Google</h2>
-                <h3>Internet and computer software</h3>
-              </v-col>
-              <v-col align-self="end">
-                <v-row>
-                  <span>15 vị trí</span>
-                </v-row>
-              </v-col>
-            </v-row>
-            <hr />
-          </div>
-          <div class="company-desc">
-            <span>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et
-              obcaecati odit earum odio dicta natus corporis assumenda
-              molestiae. Rerum totam molestias aut. Laudantium rem saepe tempora
-              doloribus soluta nam assumenda.
-            </span>
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <div class="text-center">
-      <v-pagination v-model="page" :length="4" circle></v-pagination>
-    </div>
+    <v-card>
+      <v-container>
+        <v-row>
+          <v-col v-for="(item, i) in listCompany" :key="i" cols="4" hover>
+            <div class="box-company item-hover">
+              <div class="company-banner">
+                <!-- <a href=""> -->
+                <router-link
+                  :to="{
+                    name: 'CompanyDetail',
+                    params: { companyId: item.id },
+                  }"
+                >
+                  <div class="cover-wraper">
+                    <img
+                      :src="item.background"
+                      alt="Công ty TNHH CMC GLOBAL"
+                      class="img-fluid"
+                    />
+                  </div>
+                </router-link>
+
+                <!-- </a> -->
+                <div class="company-logo">
+                  <router-link
+                    :to="{
+                      name: 'CompanyDetail',
+                      params: { companyId: item.id },
+                    }"
+                  >
+                    <img
+                      class="img-fluid"
+                      :src="item.avatar"
+                      alt="Công ty TNHH CMC GLOBAL"
+                    />
+                  </router-link>
+                </div>
+              </div>
+              <div class="company-info">
+                <h3>
+                  <router-link
+                    :to="{
+                      name: 'CompanyDetail',
+                      params: { companyId: item.id },
+                    }"
+                    style="text-decoration: none"
+                    ><span class="com-name">{{ item.companyName }}</span>
+                  </router-link>
+                </h3>
+                <div class="company-description">
+                  <p>"{{ item.description }}"</p>
+                </div>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+      <div class="text-center">
+        <v-pagination
+          v-model="queryParams.page"
+          :length="totalPage"
+          :total-visible="5"
+          circle
+        ></v-pagination>
+      </div>
+    </v-card>
   </div>
 </template>
 <script>
+import { getAllCompany } from "../api/company/company";
 export default {
   name: "CompanyList",
   components: {},
@@ -85,40 +95,40 @@ export default {
       //API danh mục việc làm
       itemCategories: ["Frontend", "Android", "IOS", "Fullstack"],
       types: ["Foo", "Bar", "Fizz", "Buzz"],
-      itemsJob: [
-        {
-          icon: "mdi-inbox",
-          text: "Inbox",
-        },
-        {
-          icon: "mdi-star",
-          text: "Star",
-        },
-        {
-          icon: "mdi-send",
-          text: "Send",
-        },
-        {
-          icon: "mdi-email-open",
-          text: "Drafts",
-        },
-      ],
-      categoriesFilter: [
-        {
-          type: "Hourly rate",
-          items: ["Filter 1", "Filter 2", "Filter 3", "Filter 4"],
-        },
-        {
-          type: "Academic degree",
-          item: ["Filter 1", "Filter 1", "Filter 1", "Filter 1"],
-        },
-        {
-          type: "Sort by",
-          item: ["Filter 1", "Filter 1", "Filter 1", "Filter 1"],
-        },
-      ],
+      listCompany: [],
+      queryParams: {
+        page: 1,
+        size: 12,
+      },
       model: 1,
+      totalPage: 1,
     };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    getList() {
+      this.getCompanies();
+    },
+    getCompanies() {
+      getAllCompany(this.queryParams).then((response) => {
+        if (response.status == 200) {
+          console.log(response.data);
+          this.listCompany = response.data.content;
+          console.log(this.listCompany);
+          this.totalPage = response.data.totalPages;
+        }
+      });
+    },
+  },
+  watch: {
+    queryParams: {
+      handler(val) {
+        this.getCompanies();
+      },
+      deep: true,
+    },
   },
 };
 </script>
@@ -151,8 +161,6 @@ section.bg-alt {
   width: 100%;
 }
 .card-filter {
-  width: 1200px;
-  margin-top: 10px;
 }
 .button-filter {
   display: flex;
@@ -183,7 +191,7 @@ section.bg-alt {
       font-size: 17px;
       margin-top: 6px;
       color: #96a2b2;
-      font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
       font-weight: 300;
     }
   }
@@ -203,5 +211,42 @@ form {
 }
 .text-center {
   margin-top: 20px;
+}
+.company .box-company {
+  background: #fff 0 0 no-repeat padding-box;
+  border-radius: 5px;
+  box-shadow: -1px 1px 4px #0000000d;
+  height: 400px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.company .box-company .company-banner {
+  height: 180px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+}
+.company .box-company .company-banner .company-logo {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  bottom: 0;
+  height: 64px;
+  left: 16px;
+  position: absolute;
+  width: 64px;
+}
+.company .box-company .company-info {
+  padding: 0 16px;
+}
+.img-fluid {
+  width: 100px;
+}
+.com-name {
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>

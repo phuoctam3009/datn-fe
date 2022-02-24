@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueHtml2pdf from 'vue-html2pdf'
 import _ from 'lodash';
+// import AvatarCropper from 'vue-avatar-cropper'
+
 
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -35,6 +37,7 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);
 Vue.use(VueHtml2pdf);
+// Vue.use(AvatarCropper)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({

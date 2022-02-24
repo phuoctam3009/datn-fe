@@ -7,15 +7,8 @@ import nestedDraggable from "./infra/nested";
 import _ from 'lodash';
 import PictureInput from 'vue-picture-input'
 import { getResumeById } from '../api/resume/resume'
-
-
-
-
-// import {
-//     terms
-// } from '../terms';
-
-// Called by templates to decrease redundancy
+import jsPDF from 'jspdf'
+import domtoimage from "dom-to-image";
 function getVueOptions(nameTemplate) {
     const opt = {
         name: nameTemplate,
@@ -78,12 +71,16 @@ function getVueOptions(nameTemplate) {
                 ],
                 saveResume: false,
                 dialogAvatar: false,
+                editable: true,
 
                 // terms: terms,
             };
         },
-        props: ['itemSelectedLeft', 'itemSelectedRight', 'statusSaveResume'],
+        props: ['itemSelectedLeft', 'itemSelectedRight', 'statusSaveResume', 'query'],
         created() {
+            if (this.query && this.query == 'edit') {
+                this.editable = true;
+            }
             if (this.$route.params.resumeId) {
                 getResumeById(this.$route.params.resumeId).then(response => {
                     console.log('response', response);
@@ -195,7 +192,41 @@ function getVueOptions(nameTemplate) {
             },
             cancelDialog() {
                 this.dialogAvatar = false;
-            }
+            },
+            async downloadWithCSS() {
+                /** WITH CSS */
+                var blob = null;
+                await domtoimage
+                    .toPng(this.$refs.content)
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        const doc = new jsPDF({
+                            orientation: "portrait",
+                            // unit: "pt",
+                            format: [900, 1400]
+                            // format: "letter"
+                        });
+                        doc.addImage(img, "JPEG", 20, 20);
+                        const date = new Date();
+                        const filename =
+                            "timechart_" +
+                            date.getFullYear() +
+                            ("0" + (date.getMonth() + 1)).slice(-2) +
+                            ("0" + date.getDate()).slice(-2) +
+                            ("0" + date.getHours()).slice(-2) +
+                            ("0" + date.getMinutes()).slice(-2) +
+                            ("0" + date.getSeconds()).slice(-2) +
+                            ".pdf";
+                        doc.save(filename);
+                        blob = doc.output('datauristring');
+                    })
+                    .catch(function (error) {
+                        console.error("oops, something went wrong!", error);
+                        blob = "";
+                    });
+                return blob;
+            },
         },
         watch: {
             itemSelectedLeft: {
@@ -239,13 +270,20 @@ function getVueOptions(nameTemplate) {
             statusSaveResume: {
                 handler: function (val, oldVal) {
                     if (val == true) {
+                        var blob;
+                        this.downloadWithCSS().then(response => {
+                            console.log(response);
+                            blob = response
+                        });
                         var data = {
                             person: this.person,
                             itemsLeft: this.itemsLeft,
                             itemsRight: this.itemsRight,
                             title: this.title,
-                            image: this.avatar
+                            image: this.avatar,
+                            path: blob,
                         }
+                        console.log('data1', data);
                         this.$emit("getInfoData", data);
 
                     }

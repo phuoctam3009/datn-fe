@@ -1,18 +1,4 @@
 <template>
-  <!-- <v-col cols="4">
-      <v-card max-width="475" class="mx-auto card-select">
-        Tích chọn mục bạn muốn hiển thị ra CV1
-        <div v-for="(item, index) in leftSide" :key="index">
-          <v-checkbox v-model="selectedLeft" :label="item" :value="item">
-          </v-checkbox>
-        </div>
-        <v-divider></v-divider>
-        <div v-for="item in rightSide" :key="item">
-          <v-checkbox v-model="selectedRight" :label="item" :value="item">
-          </v-checkbox>
-        </div>
-      </v-card>
-    </v-col> -->
   <div>
     <h1>Tips:</h1>
     <ul>

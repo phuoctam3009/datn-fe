@@ -55,12 +55,16 @@ export default {
     },
     getData(data) {
       var formData = new FormData();
+      console.log("data", data);
       formData.append("file", data.image);
+      formData.append("path", data.path);
       formData.append("title", data.title);
       formData.append("userId", this.$store.state.auth.user.id);
-      delete data["image"];
-      delete data["title"];
-      formData.append("data", JSON.stringify(data));
+      // delete data["image"];
+      // delete data["title"];
+      // delete data["path"];
+      const { image, path, title, ...dataTemp } = data;
+      formData.append("data", JSON.stringify(dataTemp));
       // var payloadRequest = {
       //   userId: this.$store.state.auth.user.id,
       //   data: JSON.stringify(data),
@@ -69,11 +73,13 @@ export default {
       // };
       addResume(formData)
         .then((response) => {
+          console.log("formData", formData);
           this.$swal("Thành công", response.data, "success").then(() => {
             this.$router.push("/profile");
           });
         })
         .catch((error) => {
+          console.log("formData", formData);
           this.$swal("Thất bại", error.response.data.error, "error");
         });
     },

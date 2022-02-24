@@ -45,3 +45,25 @@ export function addCvToRecruitment(query) {
         data: query
     })
 }
+
+export function checkCvIsApplied(id) {
+    return request({
+        url: "/recruitment/checkApply/" + id,
+        method: "get",
+    })
+}
+
+export function getRecruitmentApplied(params) {
+    return request({
+        url: "/recruitment/applied",
+        method: "get",
+        params: params
+    })
+}
+
+export function cancelResume(recruitmentId) {
+    return request({
+        url: "/recruitment/cancelResume/" + recruitmentId,
+        method: "put",
+    })
+}

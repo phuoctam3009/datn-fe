@@ -72,7 +72,7 @@
               </v-tooltip>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <route-link
+                  <router-link
                     :to="{
                       name: 'CompanyDetail',
                       params: { companyId: item.company.id },
@@ -86,7 +86,7 @@
                     >
                       {{ item.company.companyName }}
                     </span>
-                  </route-link>
+                  </router-link>
                 </template>
                 <span>{{ item.company.companyName }}</span>
               </v-tooltip>

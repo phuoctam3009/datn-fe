@@ -13,7 +13,7 @@
           <v-icon color="primary" class="white" right>dashboard</v-icon>
           <span class="white--text pt-1 pb-1 pr-2 pl-2">Thông tin</span>
         </v-subheader>
-        <v-list-item-group v-model="item" color="primary">
+        <v-list-item-group color="primary">
           <v-list-item
             v-for="item in items"
             :key="item.title"
@@ -37,7 +37,7 @@
       </vue-page-transition>
     </div>
 
-    <v-footer app dark padless elevation="7">
+    <!-- <v-footer app dark padless elevation="7">
       <v-card class="flex pt-3 pb-3" flat tile color="primary">
         <v-card-text class="py-2 white--text text-center">
           {{ new Date().getFullYear() }} —
@@ -56,7 +56,7 @@
           </strong>
         </v-card-text>
       </v-card>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
@@ -70,18 +70,19 @@ export default {
   data: () => ({
     drawer: null,
     item: 1,
+    // items: menu["candidate"],
     items: [
       {
         title: "Thông tin cá nhân",
         icon: "perm_identity",
-        link: "/admin/company",
+        link: "/candidate/profile",
       },
       {
         title: "Công việc ứng tuyển",
         icon: "reorder",
-        link: "/admin/recruitment",
+        link: "/candidate/job-apply",
       },
-      { title: "Quản lý CV", icon: "mdi-flag", link: "/admin/candidate" },
+      { title: "Quản lý CV", icon: "mdi-flag", link: "/candidate/cv" },
     ],
     sideItems: [
       {
@@ -115,14 +116,16 @@ export default {
     ],
   }),
   created() {
-    this.items = menu[this.$route.name];
+    // console.log(this.$route.name);
+    // this.items = menu["candidate"];
   },
+  mounted() {},
 };
 </script>
 
 <style lang="scss" scoped>
 #keep .v-navigation-drawer__border {
-  display: none;
+  // display: none;
 }
 
 input::label {
@@ -137,12 +140,10 @@ input::label {
   margin-top: -20px;
 }
 .v-navigation-drawer {
-  z-index: 1!important;
-
+  z-index: 1 !important;
 
   &__content {
     margin-top: 64px;
   }
 }
-
 </style>

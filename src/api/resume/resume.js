@@ -22,3 +22,10 @@ export function getResumeById(id) {
         method: "get",
     });
 }
+
+export function deleteResumeById(id) {
+    return request({
+        url: "/resume/delete/" + id,
+        method: "delete",
+    });
+}

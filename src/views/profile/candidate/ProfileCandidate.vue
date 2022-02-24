@@ -18,9 +18,11 @@
                   </v-list-item-avatar>
                   <div class="text-right ml-auto mt-n15">
                     <div class="body-3 grey--text font-weight-light">
-                      Công việc ứng tuyển
+                      Công việc đã ứng tuyển
                     </div>
-                    <h3 class="display-2 font-weight-light text--primary">1</h3>
+                    <h3 class="display-2 font-weight-light text--primary">
+                      {{ totalJobApplied }}
+                    </h3>
                   </div>
                 </div>
                 <v-divider></v-divider>
@@ -43,9 +45,11 @@
                   </v-list-item-avatar>
                   <div class="text-right ml-auto mt-n15">
                     <div class="body-3 grey--text font-weight-light">
-                      Hồ sơ đã t
+                      Hồ sơ đã tạo
                     </div>
-                    <h3 class="display-2 font-weight-light text--primary">1</h3>
+                    <h3 class="display-2 font-weight-light text--primary">
+                      {{ totalPersonalCv }}
+                    </h3>
                   </div>
                 </div>
                 <v-divider></v-divider>
@@ -92,10 +96,60 @@
                   <tr>
                     <td class="is-td-one">Avatar</td>
                     <td>
-                      <img
-                        :src="data.avatar"
-                        style="width: 100px; height: 100px"
-                      />
+                      <div class="user-info-head" @click="editCropper()">
+                        <img
+                          :src="data.avatar"
+                          style="width: 100px; height: 100px"
+                          class="img-circle img-lg"
+                        />
+                      </div>
+                      <!-- <v-dialog v-model="dialogAvatar" width="800">
+                        <v-card class="is-modal-upload-img">
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="6">
+                                <div class="hello">
+                                  <picture-input
+                                    ref="pictureInput"
+                                    @change="onChange"
+                                    width="300"
+                                    height="300"
+                                    margin="16"
+                                    accept="image/jpeg,image/png"
+                                    size="10"
+                                    buttonClass="btn"
+                                    :customStrings="{
+                                      upload: '<h1>Bummer!</h1>',
+                                      drag: 'Click hoặc kéo thả ảnh để tải lên',
+                                    }"
+                                  >
+                                  </picture-input>
+                                </div>
+                              </v-col>
+                              <v-col cols="6">
+                                <img
+                                  style="width: 300px; height: 314px"
+                                  alt="Avatar"
+                                  :src="avatar"
+                              /></v-col>
+                            </v-row>
+                          </v-card-text>
+                          <v-card-actions
+                            style="justify-content: end; margin-right: 10px"
+                          >
+                            <v-btn color="success" depressed @click="saveImage">
+                              Lưu
+                            </v-btn>
+                            <v-btn
+                              color="error"
+                              depressed
+                              @click="cancelDialog"
+                            >
+                              Hủy
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog> -->
                     </td>
                   </tr>
                   <tr>
@@ -149,6 +203,7 @@
                 <img v-if="url" :src="url" />
               </div>
             </v-row>
+            <v-row> </v-row>
             <v-row>
               <v-col cols="12">
                 <v-text-field
@@ -263,10 +318,14 @@ import {
   getCandidateById,
   updateProfileCandidate,
 } from "@/api/candidate/candidate";
+import { getRecruitmentApplied } from "@/api/recruitments/recruitments";
+import { getResumes } from "@/api/resume/resume";
 import moment from "moment";
+import Avatar from "@/components/upload/Avatar";
 
 export default {
   name: "Profile",
+  components: { Avatar },
   data() {
     return {
       tab: null,
@@ -280,6 +339,14 @@ export default {
       modal: false,
       menu2: false,
       url: null,
+      showCropper: false,
+      dialogAvatar: false,
+      totalJobApplied: 0,
+      totalPersonalCv: 0,
+      queryParams: {
+        page: 1,
+        size: 1,
+      },
     };
   },
   computed: {
@@ -292,17 +359,29 @@ export default {
   },
   created() {
     this.getCandidate();
+    this.getTotalJobApplied();
+    this.getTotalResumes();
   },
-  mounted() {
-    // if (!this.currentUser) {
-    //   this.$router.push("/login");
-    // }
-  },
+  mounted() {},
   methods: {
     getCandidate() {
       getCandidateById(this.currentUser.id).then((response) => {
         if (response.status == 200) {
           this.data = response.data;
+        }
+      });
+    },
+    getTotalJobApplied() {
+      getRecruitmentApplied(this.queryParams).then((response) => {
+        if (response.status == 200) {
+          this.totalJobApplied = response.data.totalElements;
+        }
+      });
+    },
+    getTotalResumes() {
+      getResumes(this.currentUser.id).then((response) => {
+        if (response.status == 200) {
+          this.totalPersonalCv = response.data.length;
         }
       });
     },
@@ -359,6 +438,13 @@ export default {
     },
     onFileChange(e) {
       this.url = URL.createObjectURL(e);
+    },
+    handleUploaded({ form, request, response }) {
+      // update user avatar attribute
+    },
+    editCropper() {
+      this.dialogAvatar = true;
+      console.log("edit image");
     },
   },
 };
@@ -474,5 +560,32 @@ export default {
   width: 200px;
   font-weight: bold;
   padding-bottom: 10px;
+}
+/* image */
+.img-circle {
+  border-radius: 50%;
+}
+.user-info-head {
+  position: relative;
+  display: inline-block;
+  height: 100px;
+}
+.user-info-head:hover:after {
+  content: "+";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: #eee;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  line-height: 100px;
+  border-radius: 50%;
+  text-align: center;
 }
 </style>

@@ -67,27 +67,29 @@ export default new Router({
       ]
     },
     {
-      path: '/profile',
-      redirect: "/profile/candidate",
+      path: '/candidate',
+      redirect: "/candidate/profile",
       component: () =>
         import("@/views/profile/Index"),
       children: [
         {
-          path: "employee",
-          name: "employee",
+          path: "profile",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/profile/ProfileEmployee"),
+            import(/* webpackChunkName: "about" */ "@/views/profile/candidate/ProfileCandidate"),
           meta: { transition: "zoom" }
         },
         {
-          path: "dashboard",
-          component: () => import("@/views/profile/Home")
+          path: "job-apply",
+          name: "job-apply",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/views/profile/candidate/JobApply"),
+          meta: { transition: "zoom" }
         },
         {
-          path: "candidate",
-          name: "candidate",
+          path: "cv",
+          name: "cv",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/profile/candidate/ProfileCandidate"),
+            import(/* webpackChunkName: "about" */ "@/views/profile/candidate/cv"),
           meta: { transition: "zoom" }
         },
       ]
@@ -118,7 +120,7 @@ export default new Router({
       component: AddJob,
     },
     {
-      path: "/job-manage",
+      path: "/job",
       name: "ManageJob",
       component: ManageJob,
     },
@@ -162,7 +164,8 @@ export default new Router({
     {
       path: '/resume/material-dark/:resumeId',
       name: 'resumeDetail',
-      component: MaterialDark
+      component: MaterialDark,
+      props: route => ({ query: route.query.q })
     }
   ],
 });
