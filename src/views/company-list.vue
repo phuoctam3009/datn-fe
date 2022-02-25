@@ -13,7 +13,7 @@
                 </v-row>
             </v-container>
         </v-card>
-        <v-card>
+        <v-card style="padding-top: 15px">
             <v-container class="is-data-job">
                 <div class="is-title">
                     <span>Danh sách nhà tuyển dụng</span>
@@ -254,7 +254,6 @@
         font-size: 25px;
         color: white;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
 
         span {
             padding: 5px 10px;

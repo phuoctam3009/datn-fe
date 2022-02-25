@@ -1,5 +1,5 @@
 <template>
-  <v-footer style="background: #4ca571" padless>
+  <v-footer style="background: #4ca571; position: relative; z-index: 999999" padless>
     <v-row justify="center" no-gutters>
       <v-col style="color: white" class="py-4 text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>by Nguyen Phuoc Tam</strong>
