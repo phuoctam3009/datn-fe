@@ -75,7 +75,7 @@ export default {
         .then((response) => {
           console.log("formData", formData);
           this.$swal("Thành công", response.data, "success").then(() => {
-            this.$router.push("/profile");
+            this.$router.push("/candidate");
           });
         })
         .catch((error) => {

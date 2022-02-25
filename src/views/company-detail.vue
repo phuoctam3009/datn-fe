@@ -52,16 +52,19 @@
                       >
                     </v-card-title>
 
-                    <v-card-subtitle v-text="item.artist"></v-card-subtitle>
                     <v-chip style="margin-left: 15px">
                       {{ item.level.nameLevel }}
                     </v-chip>
-                    <v-chip> {{ item.typeWork.nameTypeWork }} </v-chip>
+                    <v-chip style="margin-left: 4px">
+                      {{ item.typeWork.nameTypeWork }}
+                    </v-chip>
 
                     <v-card-actions style="margin-left: 10px">
                       <span
                         >Còn
-                        <span style="font-weight: bold"> item.dateDiff </span>
+                        <span style="font-weight: bold">
+                          {{ getDateDiff(item.dateRecruitment) }}
+                        </span>
                         ngày để ứng tuyển</span
                       >
                     </v-card-actions>
@@ -90,6 +93,8 @@
 </template>
 <script>
 import { getCompanyById } from "../api/company/company";
+import moment from "moment";
+
 export default {
   name: "CompanyDetail",
   components: {},
@@ -117,6 +122,12 @@ export default {
           console.log(this.cssProps.backgroundImage);
         }
       });
+    },
+    getDateDiff(dateEnd) {
+      var now = moment();
+      const end = moment(dateEnd);
+      var days = end.diff(now, "days");
+      return days;
     },
   },
 };

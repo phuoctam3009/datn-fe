@@ -218,8 +218,10 @@ function getVueOptions(nameTemplate) {
                             ("0" + date.getMinutes()).slice(-2) +
                             ("0" + date.getSeconds()).slice(-2) +
                             ".pdf";
-                        doc.save(filename);
-                        blob = doc.output('datauristring');
+                        // doc.save(filename);
+                        blob = doc.output('blob', {
+                            'filename': filename
+                        });
                     })
                     .catch(function (error) {
                         console.error("oops, something went wrong!", error);
@@ -270,21 +272,22 @@ function getVueOptions(nameTemplate) {
             statusSaveResume: {
                 handler: function (val, oldVal) {
                     if (val == true) {
-                        var blob;
                         this.downloadWithCSS().then(response => {
-                            console.log(response);
-                            blob = response
+                            var blob;
+                            blob = response;
+                            console.log(blob);
+                            var data = {
+                                person: this.person,
+                                itemsLeft: this.itemsLeft,
+                                itemsRight: this.itemsRight,
+                                title: this.title,
+                                image: this.avatar,
+                                path: blob,
+                            }
+                            console.log('data1', data);
+                            this.$emit("getInfoData", data);
                         });
-                        var data = {
-                            person: this.person,
-                            itemsLeft: this.itemsLeft,
-                            itemsRight: this.itemsRight,
-                            title: this.title,
-                            image: this.avatar,
-                            path: blob,
-                        }
-                        console.log('data1', data);
-                        this.$emit("getInfoData", data);
+
 
                     }
                 },
