@@ -432,8 +432,8 @@
 
     .info-job {
         // border: 0.5px solid;
-        margin-left: 16px;
-        margin-bottom: 35px;
+        margin: 0 10px 20px;
+        //margin-bottom: 35px;
         height: 150px;
 
         img {
@@ -514,17 +514,20 @@
             object-fit: cover;
             margin-right: 10px;
         }
+
         margin-bottom: 5px;
     }
 
     .text-truncate {
-        max-width: 200px!important;
+        max-width: 200px !important;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
     .is-info-row {
-        margin-top: 20px;
+        margin: 20px 0 20px 0 !important;
+        display: flex;
+        justify-content: center;
     }
 </style>

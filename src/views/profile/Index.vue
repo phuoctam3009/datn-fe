@@ -136,8 +136,8 @@ input::label {
   color: black;
 }
 .main {
-  padding: 0px 20px;
-  margin-top: -20px;
+  //padding: 0px 20px;
+  //margin-top: -20px;
 }
 .v-navigation-drawer {
   z-index: 1 !important;

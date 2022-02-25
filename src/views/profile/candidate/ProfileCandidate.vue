@@ -99,7 +99,7 @@
                       <div class="user-info-head" @click="editCropper()">
                         <img
                           :src="data.avatar"
-                          style="width: 100px; height: 100px"
+                          style="width: 100px; height: 100px; object-fit: cover"
                           class="img-circle img-lg"
                         />
                       </div>
