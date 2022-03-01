@@ -116,7 +116,13 @@ export default {
     ],
   }),
   created() {
-    // console.log(this.$route.name);
+    console.log(this.$router.currentRoute.path);
+    const currentPath = this.$router.currentRoute.path;
+    if (currentPath.includes("employer")) {
+      this.items = menu["employer"];
+    } else if (currentPath.includes("candidate")) {
+      this.items = menu["candidate"];
+    }
     // this.items = menu["candidate"];
   },
   mounted() {},

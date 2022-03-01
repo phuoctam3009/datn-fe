@@ -3,7 +3,7 @@
     <!-- <div class="page" :id="$route.params.resumeid"> -->
     <div class="page-inner">
       <component
-        :is="$route.params.resumeid"
+        :is="$route.params.typeResume"
         :itemSelectedLeft="itemSelectedLeft"
         :itemSelectedRight="itemSelectedRight"
         :statusSaveResume="saveResume"

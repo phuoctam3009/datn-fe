@@ -81,6 +81,7 @@ function getVueOptions(nameTemplate) {
             if (this.query && this.query == 'edit') {
                 this.editable = true;
             }
+            console.log(this.$route.params.resumeId);
             if (this.$route.params.resumeId) {
                 getResumeById(this.$route.params.resumeId).then(response => {
                     console.log('response', response);
@@ -283,6 +284,7 @@ function getVueOptions(nameTemplate) {
                                 title: this.title,
                                 image: this.avatar,
                                 path: blob,
+                                id: this.$route.params.resumeId ? this.$route.params.resumeId : null,
                             }
                             console.log('data1', data);
                             this.$emit("getInfoData", data);

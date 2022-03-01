@@ -2,7 +2,8 @@
   <div class="is-main">
     <div class="is-statistic">
       <v-row>
-        <v-col cols="12" md="6" sm="6">
+        <!-- 1 -->
+        <v-col cols="12" md="3" sm="3">
           <v-card class="mx-auto" max-width="344" elevation="2">
             <v-list-item two-line>
               <v-list-item-content>
@@ -29,7 +30,61 @@
             </v-list-item>
           </v-card>
         </v-col>
-        <v-col cols="12" md="6" sm="6">
+        <v-col cols="12" md="3" sm="3">
+          <v-card class="mx-auto" max-width="344" elevation="2">
+            <v-list-item two-line>
+              <v-list-item-content>
+                <div>
+                  <v-list-item-avatar
+                    tile
+                    size="80"
+                    elevation="9"
+                    color="success"
+                  >
+                    <v-icon size="40" dark> mdi-check</v-icon>
+                  </v-list-item-avatar>
+                  <div class="text-right ml-auto mt-n15">
+                    <div class="body-3 grey--text font-weight-light">
+                      Hồ sơ đã tạo
+                    </div>
+                    <h3 class="display-2 font-weight-light text--primary">
+                      {{ totalPersonalCv }}
+                    </h3>
+                  </div>
+                </div>
+                <v-divider></v-divider>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="3" sm="3">
+          <v-card class="mx-auto" max-width="344" elevation="2">
+            <v-list-item two-line>
+              <v-list-item-content>
+                <div>
+                  <v-list-item-avatar
+                    tile
+                    size="80"
+                    elevation="9"
+                    color="success"
+                  >
+                    <v-icon size="40" dark> mdi-check</v-icon>
+                  </v-list-item-avatar>
+                  <div class="text-right ml-auto mt-n15">
+                    <div class="body-3 grey--text font-weight-light">
+                      Hồ sơ đã tạo
+                    </div>
+                    <h3 class="display-2 font-weight-light text--primary">
+                      {{ totalPersonalCv }}
+                    </h3>
+                  </div>
+                </div>
+                <v-divider></v-divider>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="3" sm="3">
           <v-card class="mx-auto" max-width="344" elevation="2">
             <v-list-item two-line>
               <v-list-item-content>
@@ -65,7 +120,7 @@
             <div class="cb-title-h3">
               <div class="figure">
                 <div class="figcaption">
-                  <h3>Thông tin cá nhân *</h3>
+                  <h3>Thông tin công ty *</h3>
                   <div class="status-error" v-if="!checkProfile()">
                     <p>Chưa hoàn thành</p>
                   </div>
@@ -93,7 +148,7 @@
               <table>
                 <tbody>
                   <tr>
-                    <td class="is-td-one">Avatar</td>
+                    <td class="is-td-one">Ảnh đại diện</td>
                     <td>
                       <div class="user-info-head" @click="editCropper()">
                         <img
@@ -105,11 +160,23 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="is-td-one">Họ tên</td>
+                    <td class="is-td-one">Ảnh bìa</td>
+                    <td>
+                      <div class="user-info-head" @click="editCropper()">
+                        <img
+                          :src="data.avatar"
+                          style="width: 100px; height: 100px; object-fit: cover"
+                          class="img-circle img-lg"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="is-td-one">Tên công ty</td>
                     <td>{{ data.fullName }}</td>
                   </tr>
                   <tr>
-                    <td class="is-td-one">Ngày sinh</td>
+                    <td class="is-td-one">Người liên hệ</td>
                     <td>{{ formatDate(data.birthday) }}</td>
                   </tr>
                   <tr>
@@ -121,11 +188,11 @@
                     <td>{{ data.phone }}</td>
                   </tr>
                   <tr>
-                    <td class="is-td-one">Ngôn ngữ</td>
+                    <td class="is-td-one">Website</td>
                     <td>{{ data.position }}</td>
                   </tr>
                   <tr>
-                    <td class="is-td-one">Kinh nghiệm</td>
+                    <td class="is-td-one">Giới thiệu công ty</td>
                     <td>{{ data.experience }}</td>
                   </tr>
                 </tbody>
@@ -135,48 +202,6 @@
         </div>
       </v-card>
     </div>
-    <v-dialog v-model="dialogAvatar" width="800">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Sửa ảnh đại diện
-        </v-card-title>
-
-        <input
-          ref="input"
-          type="file"
-          name="image"
-          accept="image/*"
-          @change="setImage"
-        />
-
-        <div class="content-upload">
-          <section class="cropper-area">
-            <div class="img-cropper">
-              <vue-cropper
-                ref="cropper"
-                :src="imgSrc"
-                preview=".preview"
-                :aspect-ratio="16 / 9"
-              />
-            </div>
-            <div class="actions">
-              <a href="#" role="button" @click.prevent="showFileChooser">
-                Upload
-              </a>
-              <a href="#" role="button" @click.prevent="cropImage"> Lưu </a>
-            </div>
-          </section>
-          <section class="preview-area">
-            <p>Preview</p>
-            <div class="preview" />
-          </section>
-        </div>
-        <v-divider></v-divider>
-        <v-card-actions class="justify-end">
-          <v-btn text @click="dialogAvatar = false">Đóng</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-dialog v-model="dialog" max-width="600px" persistent>
       <v-card>
         <v-card-title>
@@ -184,6 +209,20 @@
         </v-card-title>
         <v-card-text>
           <v-form>
+            <v-row>
+              <v-file-input
+                accept="image/*"
+                label="File input"
+                @change="onFileChange"
+                outlined
+                dense
+                prepend-icon="none"
+              ></v-file-input>
+              <div id="preview">
+                <img v-if="url" :src="url" />
+              </div>
+            </v-row>
+            <v-row> </v-row>
             <v-row>
               <v-col cols="12">
                 <v-text-field
@@ -294,19 +333,18 @@
 
 <script>
 import {
+  listCandidates,
   getCandidateById,
   updateProfileCandidate,
-  updateAvatar,
 } from "@/api/candidate/candidate";
 import { getRecruitmentApplied } from "@/api/recruitments/recruitments";
 import { getResumes } from "@/api/resume/resume";
 import moment from "moment";
 import Avatar from "@/components/upload/Avatar";
-import VueCropper from "vue-cropperjs";
 
 export default {
   name: "Profile",
-  components: { Avatar, VueCropper },
+  components: { Avatar },
   data() {
     return {
       tab: null,
@@ -328,8 +366,6 @@ export default {
         page: 1,
         size: 1,
       },
-      cropImg: "",
-      imgSrc: "",
     };
   },
   computed: {
@@ -347,51 +383,6 @@ export default {
   },
   mounted() {},
   methods: {
-    cropImage() {
-      // get image data for post processing, e.g. upload or setting image src
-      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-      var formData = new FormData();
-      formData.append("filePath", this.cropImg);
-      formData.append("userId", this.$store.state.auth.user.id);
-      updateAvatar(formData).then(
-        (response) => {
-          console.log(response, response);
-          if (response.status == 200) {
-            this.showToast("success", response.data);
-            this.dialogAvatar = false;
-            this.getCandidate();
-          }
-        },
-        (error) => {
-          this.showToast("error", error.response.data.message);
-        }
-      );
-    },
-    showFileChooser() {
-      this.$refs.input.click();
-    },
-    setImage(e) {
-      const file = e.target.files[0];
-
-      if (file.type.indexOf("image/") === -1) {
-        alert("Please select an image file");
-        return;
-      }
-
-      if (typeof FileReader === "function") {
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-          this.imgSrc = event.target.result;
-          // rebuild cropperjs with the updated source
-          this.$refs.cropper.replace(event.target.result);
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        alert("Sorry, FileReader API not supported");
-      }
-    },
     getCandidate() {
       getCandidateById(this.currentUser.id).then((response) => {
         if (response.status == 200) {
@@ -467,11 +458,12 @@ export default {
     onFileChange(e) {
       this.url = URL.createObjectURL(e);
     },
+    handleUploaded({ form, request, response }) {
+      // update user avatar attribute
+    },
     editCropper() {
-      this.imgSrc = this.data.avatar;
-      // this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
       this.dialogAvatar = true;
-      console.log(this.$refs.cropper);
+      console.log("edit image");
     },
   },
 };
@@ -614,86 +606,5 @@ export default {
   line-height: 100px;
   border-radius: 50%;
   text-align: center;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0 5px 0;
-}
-
-.header h2 {
-  margin: 0;
-}
-
-.header a {
-  text-decoration: none;
-  color: black;
-}
-
-.content-upload {
-  display: flex;
-  justify-content: space-around;
-  height: 100%;
-}
-
-.cropper-area {
-  width: 300px;
-  min-height: 500px;
-}
-
-.actions {
-  margin-top: 1rem;
-}
-
-.actions a {
-  display: inline-block;
-  padding: 5px 15px;
-  background: #0062cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-}
-
-textarea {
-  width: 100%;
-  height: 100px;
-}
-
-.preview-area {
-  width: 307px;
-}
-
-.preview-area p {
-  font-size: 1.25rem;
-  margin: 0;
-  margin-bottom: 1rem;
-}
-
-.preview-area p:last-of-type {
-  margin-top: 1rem;
-}
-
-.preview {
-  width: 100%;
-  height: calc(372px * (9 / 16));
-  overflow: hidden;
-}
-
-.crop-placeholder {
-  width: 100%;
-  height: 200px;
-  background: #ccc;
-}
-
-.cropped-image img {
-  max-width: 100%;
 }
 </style>

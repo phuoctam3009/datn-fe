@@ -6,13 +6,14 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import "./registerServiceWorker";
 import i18n from './i18n'
-import moment from 'moment'
 import VeeValidate from 'vee-validate';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueHtml2pdf from 'vue-html2pdf'
 import _ from 'lodash';
+import VueCropper from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css';
 // import AvatarCropper from 'vue-avatar-cropper'
 
 
@@ -37,6 +38,7 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);
 Vue.use(VueHtml2pdf);
+Vue.use(VueCropper);
 // Vue.use(AvatarCropper)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

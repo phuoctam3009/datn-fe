@@ -67,3 +67,19 @@ export function cancelResume(recruitmentId) {
         method: "put",
     })
 }
+
+export function getRecruitmentByEmployer(params) {
+    return request({
+        url: "/recruitment/reference",
+        method: "get",
+        params: params
+
+    })
+}
+
+export function deleteRecruitment(recruitmentId) {
+    return request({
+        url: "/recruitment/delete/" + recruitmentId,
+        method: "delete",
+    })
+}

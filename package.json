@@ -34,6 +34,7 @@
     "vue-avatar-cropper": "^6.0.9",
     "vue-count-to": "^1.0.13",
     "vue-cropper": "^0.5.8",
+    "vue-cropperjs": "^4.2.0",
     "vue-html2pdf": "^1.8.0",
     "vue-i18n": "^8.17.3",
     "vue-image-crop-upload": "^3.0.3",
