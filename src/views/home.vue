@@ -49,7 +49,8 @@
                 </div>
                 <v-row class="is-info-row">
 
-                    <v-col v-for="(item, index) in listJobHot" :key="index" cols="12" md="4" class="info-job">
+                    <v-col v-for="(item, index) in listJobHot" :key="index" cols="12" md="4" class="info-job"
+                           style="cursor: pointer">
                         <div class="p-info">
                             <img class="icon-company" :src="item.company.avatar"/>
                             <div class="p-info__tool">
@@ -116,6 +117,7 @@
                             cols="12"
                             md="4"
                             class="info-job"
+                            style="cursor: pointer"
                     >
                         <div class="p-info">
                             <img class="icon-company" :src="item.background"/>
@@ -434,7 +436,7 @@
         // border: 0.5px solid;
         margin: 0 10px 20px;
         //margin-bottom: 35px;
-        height: 150px;
+        //height: 150px;
 
         img {
             border-radius: 10px;
@@ -449,8 +451,21 @@
             }
         }
 
-
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 12px 12px 0 12px;
+
+        &:after {
+            display: block;
+            content: '';
+            border-bottom: solid 3px #00b14f;
+            transform: scaleX(0);
+            transition: transform 250ms ease-in-out;
+            transform-origin: 0% 50%;
+        }
+
+        &:hover:after {
+            transform: scaleX(1);
+        }
     }
 
     .col-md-4 {
