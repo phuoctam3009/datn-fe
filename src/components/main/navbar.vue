@@ -74,10 +74,10 @@
             <v-list-item router to="/candidate">
               <v-icon left color="primary">lock</v-icon>
               <v-list-item-title>Thông tin cá nhân</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-icon left color="primary">settings_power</v-icon>
-              <v-list-item-title @click="logOut">Đăng xuất</v-list-item-title>
+            </v-list-item >
+            <v-list-item @click="logOut">
+              <v-icon left="primary">settings_power</v-icon>
+              <v-list-item-title>Đăng xuất</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
