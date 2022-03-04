@@ -4,36 +4,34 @@
 title: 'Tiêu đề CV'
 
 person:
-  name: John Doe
-  about: Hi, my name is John Doe. I'm just about the most boring type of person you could
-       possibly imagine. I like collecting leaves from the tree in my back yard and documenting
-       each time I eat a peanut that is non-uniform. I am not a robot. Please hire me. 
-  position: Software Developer
+  name: Nguyễn Văn A
+  about: Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.. 
+  position: Java Developer
   contact:
-    email: john.doe@email.com
+    email: test@email.com
     phone: 0123 456789
-    street: 1234 Broadway
-    city: New York
-    website: johndoe.com
-    github: johnyD
+    street: 123 Hải Châu
+    city: Đà Nẵng
+    website: mywebsite.com
+    github: nvagithub
   birth:
-    year: 1990
-    location: New York  
+    year: 1999
+    location: Đà Nẵng  
   information: Thông tin liên hệ
   
 # you may add more experiences by duplicating the template
 
 experience:
-- nameCompany: Company A
+- nameCompany: Công ty A
   position: Developer
-  timeperiod: since January 2016
-  description: Programming and watching cute cat videos.
+  timeperiod: Từ 1/2016
+  description: Lập trình và xem video mèo dễ thương.
   website: https://example.com
 
-- nameCompany: Company B
+- nameCompany: Công ty B
   position: Frontend Developer
-  timeperiod: January 2015 - December 2015
-  description: Fulfillment of extremely important tasks.
+  timeperiod: 1/2015 - 12/2015
+  description: Hoàn thành các nhiệm vụ cực kỳ quan trọng.
 
 - nameCompany: Company C
   position: Trainee
@@ -41,19 +39,19 @@ experience:
   description: Making coffee and baking cookies.
 
 education:
-- degree: Master of Arts
-  timeperiod: March 2012 - December 2013
-  description: Major in Hacking and Computer Penetration, University A, New York, USA.
-  nameUniversity: MyUniversity
-- degree: Bachelor of Science
-  timeperiod: March 2009 - December 2011
-  description: Major in Engineering, University B, Los Angeles, USA.
-  nameUniversity: MyUniversity
+- degree: Công nghệ phần mềm
+  timeperiod:  3/2012 - 3/2016
+  description: Tốt nghiệp loại Giỏi, điểm trung bình 8.0.
+  nameUniversity: Đại học Bách Khoa Đà Nẵng
+- degree: Công nghệ phần mềm
+  timeperiod:  3/2012 - 3/2016
+  description: Tốt nghiệp loại Giỏi, điểm trung bình 8.0.
+  nameUniversity: Đại học Bách Khoa Đà Nẵng
 
 
 activites:
-- role: Tên vị trí
-  organizationName: Tên tổ chức
+- role: Tình nguyện viên
+  organizationName: Tổ chức tình nguyện xanh
   description: Mô tả
   timeperiod: March 2009 - December 2011
 

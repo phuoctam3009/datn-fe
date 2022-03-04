@@ -195,8 +195,8 @@ export default {
             this.successful = true;
           },
           (error) => {
-            console.log("error", error);
-            this.$swal("Thất bại", "Đăng ký thất bại", "error");
+            console.log("error", error.response);
+            this.$swal("Thất bại", error.response.data.message, "error");
           }
         );
       } else {
@@ -243,7 +243,7 @@ body {
 }
 
 .center {
-  margin-top: 10px;
+  margin-top: 5px;
   //padding: 0 15px;
   margin-right: auto;
   margin-left: auto;

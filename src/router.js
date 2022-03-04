@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/home.vue";
-import JobList1 from "./views/position/job-list-1.vue";
 import JobDetail from "./views/job-detail.vue";
 import ApplyJob from "./views/apply-job.vue";
 import AddJob from "./views/add-job.vue";
@@ -12,21 +11,21 @@ import CompanyDetail from "./views/company-detail.vue";
 import AddCompany from "./views/add-company.vue";
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
-import Profile from './views/Profile.vue';
 import ResumeTemplate from './views/resume-template.vue'
 import Resume from './views/resume.vue'
 import MaterialDark from './resumes/material-dark.vue'
 import VueHtml from './views/vue-html2pdf.vue'
+import store from './store'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
     {
       path: "/admin",
       // name: "Dashboard",
-      redirect: "/admin/dashboard",
+      redirect: "/admin/company",
       component: () =>
         import(/* webpackChunkName: "about" */ "@/views/dashboard/Index"),
       children: [
@@ -220,3 +219,17 @@ export default new Router({
 //     next();
 //   }
 // });
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = store.state.auth.status.loggedIn;
+  const user = store.state.auth.user;
+  const publicPages = ['/login', '/register'];
+
+  if (publicPages.includes(to.path) && loggedIn) {
+    next('/');
+  } else {
+    next();
+  }
+})
+
+export default router;

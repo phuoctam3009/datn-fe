@@ -1,10 +1,10 @@
-import request from "../request.js";
+import request, { baseUrl } from "../request.js";
 import axios from 'axios'
 
 
 // Query the list of Invoice history
 export function addResume(data) {
-    return axios.post("http://localhost:8080/resume/addResume", data, {
+    return axios.post(baseUrl + "resume/addResume", data, {
         headers: { 'Content-Type': 'multipart/form-data' }
     });
 }

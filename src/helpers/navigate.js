@@ -7,7 +7,6 @@ const menu = {
     "employer": [
         { title: "Thông tin nhà tuyển dụng", icon: "perm_identity", link: "/employer/profile" },
         { title: "Tin tuyển dụng", icon: "reorder", link: "/employer/recruitment" },
-        { title: "Đăng tin tuyển dụng", icon: "mdi-flag", link: "/job-manage" },
         { title: "Danh sách ứng viên", icon: "mdi-flag", link: "/employer/candidates" },
 
     ]

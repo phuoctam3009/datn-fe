@@ -3,9 +3,9 @@
     <div class="navbar-header">
       <router-link to="/">
         <img
-          src="https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
-          alt="TopCV tuyen dung tai TopCV"
-          title="TopCV tuyển dụng tại TopCV"
+          src="../../assets/logo/logo.png"
+          alt="MyJob tuyển dụng"
+          title="MyJob tuyển dụng"
           class=""
           style="height: 50px"
           @click="toIndexPage"
@@ -71,10 +71,10 @@
             <!-- <v-btn color="primary" dark v-on="on">Dropdown</v-btn> -->
           </template>
           <v-list>
-            <v-list-item router to="/candidate">
+            <v-list-item @click="toProfile">
               <v-icon left color="primary">lock</v-icon>
               <v-list-item-title>Thông tin cá nhân</v-list-item-title>
-            </v-list-item >
+            </v-list-item>
             <v-list-item @click="logOut">
               <v-icon left="primary">settings_power</v-icon>
               <v-list-item-title>Đăng xuất</v-list-item-title>
@@ -148,6 +148,23 @@ export default {
     ...GlobalComputed,
   },
   methods: {
+    toProfile() {
+      console.log(this.$store.state.auth);
+      if (!this.$store.state.auth.status.loggedIn) {
+        this.$router.push("/login");
+      } else {
+        const curUser = this.$store.state.auth.user;
+        const isRoleAdmin = (element) => element == "ROLE_ADMIN";
+        const isRoleEmployer = (element) => element == "ROLE_EMPLOYEE";
+        if (curUser.roles.findIndex(isRoleAdmin) > -1) {
+          this.$router.push("/admin");
+        } else if (curUser.roles.findIndex(isRoleEmployer) > -1) {
+          this.$router.push("/employer");
+        } else {
+          this.$router.push("/candidate");
+        }
+      }
+    },
     handleScroll() {
       this.scrolled = window.scrollY > 0;
     },

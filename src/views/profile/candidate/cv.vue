@@ -40,7 +40,7 @@
         </v-card>
       </v-col>
       <v-col :cols="3">
-        <v-card class="button-add-cv">
+        <v-card class="button-add-cv" @click="openCV">
           <span> + </span>
         </v-card>
       </v-col>
@@ -64,6 +64,9 @@ export default {
     },
   },
   methods: {
+    openCV() {
+      this.$router.push(`/resume/material-dark/`);
+    },
     getListResumes() {
       getResumes(this.currentUser.id).then((response) => {
         if (response.status == 200) {

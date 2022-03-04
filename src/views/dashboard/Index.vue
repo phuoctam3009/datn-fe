@@ -83,7 +83,7 @@
       </vue-page-transition>
     </div>
 
-    <v-footer app dark padless elevation="7">
+    <!-- <v-footer app dark padless elevation="7">
       <v-card class="flex pt-3 pb-3" flat tile color="primary">
         <v-card-text class="py-2 white--text text-center">
           {{ new Date().getFullYear() }} —
@@ -102,7 +102,7 @@
           </strong>
         </v-card-text>
       </v-card>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 

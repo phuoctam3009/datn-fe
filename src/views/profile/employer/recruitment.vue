@@ -14,6 +14,13 @@
         <div class="is-title">
           <span>Danh sách tin tuyển dụng</span>
           <div class="is-line"></div>
+          <v-btn
+            depressed
+            color="success"
+            style="margin-right: 20px"
+            @click="addNewRecruitment"
+            >Thêm mới</v-btn
+          >
         </div>
         <v-card
           class="card-job"
@@ -59,10 +66,15 @@
               </div>
             </v-col>
             <v-col cols="2" class="btn-detail">
-              <v-btn color="success" @click="openDialogEdit(item.id)"
-                >Chỉnh sửa</v-btn
-              >
-              <v-btn color="error" @click="deleteConfirm(item.id)">Xóa</v-btn>
+              <div class="card-button">
+                <v-btn color="indigo" @click="getListCandidate(item.id)" dark
+                  >Ứng viên</v-btn
+                >
+                <v-btn color="cyan" dark @click="openDialogEdit(item.id)"
+                  >Chỉnh sửa</v-btn
+                >
+                <v-btn color="error" @click="deleteConfirm(item.id)">Xóa</v-btn>
+              </div>
             </v-col>
           </v-row>
         </v-card>
@@ -76,14 +88,14 @@
         ></v-pagination>
       </div>
     </v-card>
-    <v-dialog v-model="dialog" max-width="800px">
+    <v-dialog v-model="dialog" max-width="800px" content-class="mt-16">
       <v-card class="flexcard" height="100%">
         <v-card-title class="text-h5 grey lighten-2">
-          Thông tin tuyển dụng
+          {{ title }}
         </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="12" class="mb-n8">
               <v-text-field
                 label="Tiêu đề tin tuyển dụng"
                 v-model="dataQuery.jobTitle"
@@ -93,13 +105,15 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
+                type="number"
+                hide-details
                 v-model="dataQuery.amountEmployee"
                 label="Số lượng"
                 required
                 outlined
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="mb-n8">
               <v-text-field
                 v-model="dataQuery.salary"
                 label="Mức lương"
@@ -107,15 +121,63 @@
                 outlined
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="dataQuery.position"
+            <v-col cols="12" class="mb-n8">
+              <v-select
+                v-model="dataQuery.career"
+                :items="listCareer"
+                item-text="nameCareer"
+                item-value="id"
                 label="Vị trí"
+                required
+                outlined
+                return-object
+              ></v-select>
+            </v-col>
+            <v-col cols="12" class="mb-n8">
+              <v-select
+                v-model="dataQuery.level"
+                :items="listLevel"
+                item-text="nameLevel"
+                item-value="id"
+                label="Cấp bậc"
+                required
+                return-object
+                outlined
+              ></v-select>
+            </v-col>
+            <v-col cols="12" class="mb-n8">
+              <v-select
+                v-model="dataQuery.typeWork"
+                :items="listTypeWork"
+                item-text="nameTypeWork"
+                item-value="id"
+                label="Hình thức làm việc"
+                required
+                return-object
+                outlined
+              ></v-select>
+            </v-col>
+            <v-col cols="12" class="mb-n8">
+              <v-text-field
+                v-model="dataQuery.workExperience"
+                label="Yêu cầu kinh nghiệm"
                 required
                 outlined
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="mb-n8">
+              <v-select
+                v-model="dataQuery.city"
+                :items="listCity"
+                item-text="cityName"
+                item-value="id"
+                label="Thành phố"
+                required
+                return-object
+                outlined
+              ></v-select>
+            </v-col>
+            <v-col cols="12" class="mb-n8">
               <v-text-field
                 v-model="dataQuery.address"
                 label="Địa chỉ"
@@ -123,31 +185,61 @@
                 outlined
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
-              <!-- <v-text-field
-                v-model="dataQuery.dateRecruitment"
-                type="date"
-                label="Hạn nộp hồ sơ"
-                required
-                outlined
-              ></v-text-field> -->
-              <input
-                type="date"
-                class="form-control"
-                v-model="dataQuery.dateRecruitment"
-              />
-
-              <!-- <v-date-picker
-                label="From Date"
-                locale="en-in"
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="date"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-col cols="12" class="mb-n8">
+                  <v-text-field
+                    v-model="computedDateFormatted"
+                    label="Hạn ứng tuyển"
+                    outlined
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </v-col>
+              </template>
+              <v-date-picker
                 v-model="dataQuery.dateRecruitment"
                 no-title
-              ></v-date-picker> -->
-            </v-col>
-            <v-col cols="12">
+                scrollable
+              >
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">
+                  Cancel
+                </v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(date)">
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+            <v-col cols="12" class="mb-n8">
               <v-textarea
                 v-model="dataQuery.jobDescription"
                 label="Mô tả công việc"
+                required
+                outlined
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12" class="mb-n8">
+              <v-textarea
+                v-model="dataQuery.jobRequirements"
+                label="Yêu cầu ứng viên"
+                required
+                outlined
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12">
+              <v-textarea
+                v-model="dataQuery.jobBenefits"
+                label="Quyền lợi"
                 required
                 outlined
               ></v-textarea>
@@ -159,12 +251,87 @@
           <v-btn color="gray darken-1" text @click="dialog = false">
             Đóng lại
           </v-btn>
-          <v-btn color="blue darken-1" text @click="submitEditRecruitment">
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="submitEditRecruitment"
+            :loading="loading"
+          >
             Lưu
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      right
+      width="600"
+      height="100%"
+    >
+      <v-toolbar flat>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title class="title">
+              Danh sách ứng viên
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+
+      <v-divider></v-divider>
+      <v-list nav dense class="list-cv">
+        <v-card
+          class="card-job my-5"
+          v-for="(item, i) in listCv"
+          :key="i"
+          cols="4"
+          hover
+          max-width="600"
+        >
+          <v-row class="is-row-data">
+            <v-col cols="4">
+              <img
+                :src="item.avatar"
+                style="
+                  width: 150px;
+                  height: 150px;
+                  object-fit: cover;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                "
+              />
+            </v-col>
+            <v-col cols="5">
+              <div class="content">
+                <v-row>
+                  <span style="font-weight: bold; font-size: 20px">{{
+                    item.candidate.fullName
+                  }}</span>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" class="is-col-data"
+                    >Điện thoại: {{ item.candidate.phone }}</v-col
+                  >
+                  <v-col cols="12" class="is-col-data">
+                    <span>Địa chỉ: {{ item.candidate.address }}</span>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+            <v-col cols="3">
+              <div class="card-button">
+                <v-btn color="success" @click="previewCv(item)">Xem CV</v-btn>
+                <v-btn color="error">Hủy</v-btn>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+        <div v-if="listCv.length < 1">
+          <span style="padding-left: 10px">Hiện tại chưa có ứng viên nào</span>
+        </div>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 <script>
@@ -172,7 +339,14 @@ import {
   getRecruitmentById,
   getRecruitmentByEmployer,
   deleteRecruitment,
+  employerUpdateInfo,
+  employerAddRecruitment,
+  getResumesByRecruitmentId,
 } from "../../../api/recruitments/recruitments";
+import { listCareers } from "../../../api/career/career";
+import { listLevels } from "../../../api/level/level";
+import { listTypeWorks } from "../../../api/typework/typework";
+import { listCitys } from "../../../api/city/city";
 import moment from "moment";
 
 export default {
@@ -180,6 +354,10 @@ export default {
   components: {},
   data() {
     return {
+      menu: false,
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       listRecruitment: [],
       queryParams: {
         page: 1,
@@ -188,18 +366,81 @@ export default {
       model: 1,
       totalPage: 1,
       dialog: false,
+      loading: false,
+      title: "",
       dataQuery: {},
+      listCareer: [],
+      listLevel: [],
+      listTypeWork: [],
+      listCv: [],
+      listCity: [],
+      drawer: false,
+      group: null,
     };
   },
   created() {
     this.getList();
+    this.getListsCareers();
+    this.getListLevels();
+    this.getListTypeWork();
+    this.getListCity();
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    computedDateFormatted() {
+      return this.formatDate(this.dataQuery.dateRecruitment);
+    },
   },
   methods: {
+    openCV(resumeId) {
+      this.$router.push(`/resume/material-dark/${resumeId}`);
+    },
+    previewCv(item) {
+      var basePath = "http://127.0.0.1:8887/";
+      window.open(basePath + item.path, "_blank", "fullscreen=yes");
+    },
+    getListCandidate(jobId) {
+      this.drawer = true;
+      // getRecruitmentsReference(jobId).then((response) => {
+      //   console.log(response);
+      // });
+      getResumesByRecruitmentId(jobId).then((response) => {
+        this.listCv = response.data;
+        console.log(response);
+      });
+    },
+    addNewRecruitment() {
+      this.dataQuery = {};
+      this.dialog = true;
+      this.title = "Thêm thông tin tuyển dụng";
+    },
+    getListCity() {
+      listCitys().then((response) => {
+        this.listCity = response.data;
+      });
+    },
+    getListTypeWork() {
+      listTypeWorks().then((response) => {
+        this.listTypeWork = response.data;
+      });
+    },
+    getListsCareers() {
+      listCareers().then((response) => {
+        this.listCareer = response.data;
+      });
+    },
+    getListLevels() {
+      listLevels().then((response) => {
+        this.listLevel = response.data;
+      });
+    },
+    formatDate(date) {
+      if (date) {
+        return moment(String(date)).format("DD/MM/yyyy");
+      }
+    },
     deleteConfirm(id) {
       this.$swal
         .fire({
@@ -248,8 +489,8 @@ export default {
     },
     getRecruitment() {
       getRecruitmentByEmployer(this.queryParams).then((response) => {
-        console.log(response);
         if (response.status == 200) {
+          console.log("data", response.data.content);
           this.listRecruitment = response.data.content;
           this.totalPage = response.data.totalPages;
         }
@@ -260,18 +501,46 @@ export default {
     },
     openDialogEdit(id) {
       getRecruitmentById(id).then((response) => {
-        console.log("response", response);
         this.dataQuery = response.data;
-        this.dataQuery.dateRecruitment = moment(
-          this.dataQuery.dateRecruitment
-        ).format("yyyy-MM-dd");
-        console.log(this.dataQuery);
       });
       this.dialog = true;
+      this.title = "Sửa thông tin tuyển dụng";
     },
     submitEditRecruitment() {
-      console.log(this.dataQuery);
-      this.dialog = false;
+      this.loading = true;
+      const payload = { ...this.dataQuery };
+      payload.careerId = payload.career.id;
+      payload.levelId = payload.level.id;
+      payload.typeWorkId = payload.typeWork.id;
+      payload.cityId = payload.city.id;
+      if (payload.id) {
+        //Update recruitment
+        employerUpdateInfo(payload).then(
+          (response) => {
+            this.showToast("success", response.data);
+            this.dialog = false;
+            this.getList();
+          },
+          (error) => {
+            this.showToast("error", error.response.data.message);
+          }
+        );
+        this.loading = false;
+      } else {
+        //AddRecruitment
+        payload.userId = this.currentUser.id;
+        employerAddRecruitment(payload).then(
+          (response) => {
+            this.showToast("success", response.data);
+            this.dialog = false;
+            this.getList();
+          },
+          (error) => {
+            this.showToast("error", error.response.data.message);
+          }
+        );
+        this.loading = false;
+      }
     },
   },
   watch: {
@@ -431,6 +700,13 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  .card-button {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin: 5px 0px;
+    }
+  }
 }
 
 .is-data-job {
@@ -495,9 +771,24 @@ form {
 .flexcard {
   display: flex;
   flex-direction: column;
+  z-index: 100000;
 }
 // Add the css below if your card has a toolbar, and if your toolbar's height increases according to the flex display.
 .flexcard .v-toolbar {
   flex: 0;
+}
+.v-dialog:not(.v-dialog--fullscreen) {
+  max-height: 85% !important;
+}
+.list-cv {
+  // overflow-y: auto !important;
+  height: calc(100% - 64px);
+}
+.card-button {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin: 5px 0px;
+  }
 }
 </style>

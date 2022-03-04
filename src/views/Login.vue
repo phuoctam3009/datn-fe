@@ -90,7 +90,16 @@ export default {
           () => {
             this.$swal("Thành công", "Đăng nhập thành công", "success").then(
               () => {
-                this.$router.push("/");
+                const curUser = this.$store.state.auth.user;
+                const isRoleAdmin = (element) => element == "ROLE_ADMIN";
+                const isRoleEmployer = (element) => element == "ROLE_EMPLOYEE";
+                if (curUser.roles.findIndex(isRoleAdmin) > -1) {
+                  this.$router.push("/admin");
+                } else if (curUser.roles.findIndex(isRoleEmployer) > -1) {
+                  this.$router.push("/employer");
+                } else {
+                  this.$router.push("/");
+                }
               }
             );
           },

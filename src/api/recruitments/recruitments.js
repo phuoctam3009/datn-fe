@@ -1,4 +1,4 @@
-import request from "../request.js";
+import request, { baseUrl } from "../request.js";
 
 // Query the list of Invoice history
 export function listRecruitments(query) {
@@ -81,5 +81,28 @@ export function deleteRecruitment(recruitmentId) {
     return request({
         url: "/recruitment/delete/" + recruitmentId,
         method: "delete",
+    })
+}
+
+export function employerUpdateInfo(data) {
+    return request({
+        url: "/recruitment/employer/updateInfo/",
+        method: "put",
+        data: data
+    })
+}
+
+export function employerAddRecruitment(data) {
+    return request({
+        url: "/recruitment/employer/add/",
+        method: "post",
+        data: data
+    })
+}
+
+export function getResumesByRecruitmentId(jobId) {
+    return request({
+        url: "/recruitment/" + jobId + "/resumes/",
+        method: "get",
     })
 }

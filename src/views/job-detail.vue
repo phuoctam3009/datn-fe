@@ -76,7 +76,7 @@
                       </v-col>
                       <v-col cols="3"> {{ item.title }} </v-col>
                       <v-col cols="4">
-                        <v-btn @click="openCV(item.id)">Xem </v-btn>
+                        <v-btn @click="previewCV(item)">Xem </v-btn>
                       </v-col>
                       <v-divider></v-divider>
                     </v-row>
@@ -186,7 +186,7 @@
         </div>
         <div class="info-address">
           <span>Địa điểm làm việc</span>
-          <p>- Khu vực: Hà Nội</p>
+          <!-- <p>- Khu vực: Hà Nội</p> -->
           <p>- {{ data.address }}</p>
         </div>
         <div class="job-description">
@@ -453,6 +453,10 @@ export default {
     },
     openCV(resumeId) {
       this.$router.push(`/resume/material-dark/${resumeId}`);
+    },
+    previewCV(item) {
+      var basePath = "http://127.0.0.1:8887/";
+      window.open(basePath + item.path, "_blank", "fullscreen=yes");
     },
     applyResume() {
       console.log(this.radioGroup);

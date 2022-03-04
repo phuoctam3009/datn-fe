@@ -5,19 +5,24 @@
       <li>Ấn trực tiếp vào các phần thông tin để chỉnh sửa</li>
       <li>Bấm nút "Lưu hồ sơ" để lưu thông tin hồ sơ</li>
       <li>Tích chọn mục bạn muốn hiển thị ra hồ sơ</li>
-        <v-card max-width="530" class="card-select">
-          <div v-for="(item, index) in leftSide" :key="index">
-            <v-checkbox v-model="selectedLeft" :label="item" :value="item">
-            </v-checkbox>
-          </div>
-          <v-divider></v-divider>
-          <div v-for="item in rightSide" :key="item">
-            <v-checkbox v-model="selectedRight" :label="item" :value="item">
-            </v-checkbox>
-          </div>
-        </v-card>
+      <v-card max-width="530" class="card-select">
+        <div v-for="(item, index) in leftSide" :key="index">
+          <v-checkbox v-model="selectedLeft" :label="item" :value="item">
+          </v-checkbox>
+        </div>
+        <v-divider></v-divider>
+        <div v-for="item in rightSide" :key="item">
+          <v-checkbox v-model="selectedRight" :label="item" :value="item">
+          </v-checkbox>
+        </div>
+      </v-card>
     </ul>
-    <v-btn elevation="2" block color="secondary" @click="saveResume"
+    <v-btn
+      elevation="2"
+      block
+      color="secondary"
+      @click="saveResume"
+      :loading="loading"
       >Lưu hồ sơ</v-btn
     >
   </div>
@@ -36,6 +41,7 @@ export default {
       ],
       leftSide: ["Kỹ năng", "Sở thích"],
       rightSide: ["Kinh nghiệm làm việc", "Học vấn", "Hoạt động", "Thành tích"],
+      loading: false,
     };
   },
   watch: {
@@ -54,6 +60,7 @@ export default {
   },
   methods: {
     saveResume() {
+      this.loading = true;
       this.$emit("setSaveResume", true);
     },
   },
