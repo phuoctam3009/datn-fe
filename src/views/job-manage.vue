@@ -4,7 +4,14 @@
       <v-container class="is-search">
         <v-row>
           <v-col cols="12" md="12">
-            <v-text-field outlined label="Tìm kiếm ..." dense></v-text-field>
+            <v-text-field
+              v-model="textQuery"
+              outlined
+              label="Tìm kiếm ..."
+              dense
+              @keydown.enter.prevent="query"
+              clearable
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -49,13 +56,18 @@
                     >Số lượng: {{ item.amountEmployee }}</v-col
                   >
                   <v-col cols="6" class="is-col-data"
-                    >Hạn ứng tuyển: {{ formatDateRecruitment }}
+                    >Hạn ứng tuyển:
+                    {{ formatDateRecruitment(item.dateRecruitment) }}
                   </v-col>
                   <v-col cols="6" class="is-col-data"
                     >Địa điểm: {{ item.address }}</v-col
                   >
                 </v-row>
-                <v-row> Mô tả: {{ item.jobDescription }}</v-row>
+                <v-row
+                  ><div class="job-description">
+                    Mô tả: {{ item.jobDescription }}
+                  </div>
+                </v-row>
               </div>
             </v-col>
             <v-col cols="2" class="btn-detail">
@@ -65,9 +77,13 @@
             </v-col>
           </v-row>
         </v-card>
+        <div v-if="totalPage < 1" style="text-align: center">
+          Không tìm thấy kết quả
+        </div>
       </v-container>
       <div class="text-center" style="padding: 20px 0 30px 0">
         <v-pagination
+          v-if="totalPage > 0"
           v-model="queryParams.page"
           :length="totalPage"
           :total-visible="7"
@@ -78,22 +94,25 @@
   </div>
 </template>
 <script>
-import { listRecruitments } from "../api/recruitments/recruitments";
+import {
+  listRecruitments,
+  queryRecruitments,
+} from "../api/recruitments/recruitments";
+import moment from "moment";
 
 export default {
   name: "CompanyList",
   components: {},
   data() {
     return {
-      //API danh mục việc làm
-      types: ["Foo", "Bar", "Fizz", "Buzz"],
       listJob: [],
       queryParams: {
         page: 1,
         size: 4,
+        textQuery: "",
       },
-      model: 1,
       totalPage: 1,
+      textQuery: "",
     };
   },
   created() {
@@ -104,16 +123,27 @@ export default {
       this.getRecruitments();
     },
     getRecruitments() {
-      listRecruitments(this.queryParams).then((response) => {
+      queryRecruitments(this.queryParams).then((response) => {
         if (response.status == 200) {
           this.listJob = response.data.content;
           this.totalPage = response.data.totalPages;
-          console.log(this.listJob);
         }
       });
     },
     detailJob(jobId) {
       this.$router.push(`/job-detail/${jobId}`);
+    },
+    formatDateRecruitment(dateRecruitment) {
+      return moment(String(dateRecruitment)).format("DD/MM/yyyy");
+    },
+    query() {
+      this.resetQuery();
+      this.queryParams.textQuery = this.textQuery;
+      this.getRecruitments();
+    },
+    resetQuery() {
+      this.queryParams.page = 1;
+      this.queryParams.size = 4;
     },
   },
   watch: {
@@ -122,6 +152,13 @@ export default {
         this.getRecruitments();
       },
       deep: true,
+    },
+    textQuery: function (val) {
+      if (!val) {
+        this.resetQuery();
+        this.queryParams.textQuery = "";
+        this.getRecruitments();
+      }
     },
   },
 };
@@ -333,5 +370,12 @@ form {
   width: 250px !important;
   height: 3px;
   background: #00b14f;
+}
+.job-description {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

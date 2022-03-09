@@ -15,6 +15,14 @@ export function getAllCompany(query) {
         params: query
     });
 }
+
+export function queryCompany(query) {
+    return request({
+        url: "/company/query",
+        method: "get",
+        params: query
+    });
+}
 export function getCompanyActive(query) {
     return request({
         url: "/company/getActive",

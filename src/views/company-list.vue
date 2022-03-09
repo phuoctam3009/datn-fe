@@ -4,7 +4,14 @@
       <v-container class="is-search">
         <v-row>
           <v-col cols="12" md="12">
-            <v-text-field outlined label="Tìm kiếm ..." dense></v-text-field>
+            <v-text-field
+              v-model="textQuery"
+              outlined
+              label="Tìm kiếm ..."
+              dense
+              @keydown.enter.prevent="query"
+              clearable
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -77,9 +84,13 @@
             </div>
           </v-col>
         </v-row>
+        <div v-if="totalPage < 1" style="text-align: center">
+          Không tìm thấy kết quả
+        </div>
       </v-container>
       <div class="text-center" style="padding: 20px 0 30px 0">
         <v-pagination
+          v-if="totalPage > 0"
           v-model="queryParams.page"
           :length="totalPage"
           :total-visible="7"
@@ -90,7 +101,7 @@
   </div>
 </template>
 <script>
-import { getAllCompany } from "../api/company/company";
+import { getAllCompany, queryCompany } from "../api/company/company";
 
 export default {
   name: "CompanyList",
@@ -101,9 +112,10 @@ export default {
       queryParams: {
         page: 1,
         size: 12,
+        textQuery: "",
       },
-      model: 1,
       totalPage: 1,
+      textQuery: "",
     };
   },
   created() {
@@ -114,14 +126,21 @@ export default {
       this.getCompanies();
     },
     getCompanies() {
-      getAllCompany(this.queryParams).then((response) => {
+      queryCompany(this.queryParams).then((response) => {
         if (response.status == 200) {
-          console.log(response.data);
           this.listCompany = response.data.content;
-          console.log(this.listCompany);
           this.totalPage = response.data.totalPages;
         }
       });
+    },
+    query() {
+      this.resetQuery();
+      this.queryParams.textQuery = this.textQuery;
+      this.getCompanies();
+    },
+    resetQuery() {
+      this.queryParams.page = 1;
+      this.queryParams.size = 12;
     },
   },
   watch: {
@@ -130,6 +149,13 @@ export default {
         this.getCompanies();
       },
       deep: true,
+    },
+    textQuery: function (val) {
+      if (!val) {
+        this.resetQuery();
+        this.queryParams.textQuery = "";
+        this.getCompanies();
+      }
     },
   },
 };
@@ -354,5 +380,11 @@ form {
 
 .company-description {
   padding: 0 10px;
+  // text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>
