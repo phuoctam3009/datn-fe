@@ -92,6 +92,13 @@
                 </v-card>
               </v-col>
             </v-row>
+            <v-row
+              v-if="data.recruitments.length < 1"
+              dense
+              style="text-align: center"
+            >
+              <span>Hiện tại chưa có tin tuyển dụng</span>
+            </v-row>
             <!-- <v-row v-if="!data.recruitments.length"> Hiện không có tin tuyển dụng </v-row> -->
           </v-container>
         </v-card>

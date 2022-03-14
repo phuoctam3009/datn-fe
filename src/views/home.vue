@@ -116,8 +116,7 @@
               </div>
             </div>
             <v-row no-gutters>
-              <v-chip>10-15 triệu</v-chip>
-              <v-chip>Remote</v-chip>
+              <span class="com-desc">{{ item.description }}</span>
             </v-row>
           </v-col>
         </v-row>
@@ -136,14 +135,9 @@
 
 <script>
 // @ is an alias to /src
-import CountTo from "vue-count-to";
 import "particles.js";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
-
-import AnimateText from "@/components/custom/animate-text";
-import ScrollIcon from "@/components/custom/scroll-icon";
-import AnimatedBackground from "@/components/custom/animated-background";
 
 import GlobalMethods from "@/helpers/global-methods";
 import Footer from "@/components/main/footer";
@@ -154,10 +148,6 @@ import { getAllCompany, getCompanyActive } from "../api/company/company";
 export default {
   name: "Home",
   components: {
-    CountTo,
-    AnimateText,
-    ScrollIcon,
-    AnimatedBackground,
     Footer,
     Statistic,
   },
@@ -205,13 +195,6 @@ export default {
           console.log("list company", this.listCompany);
         }
       });
-    },
-    scrollToSection(n) {
-      let i = n - 1,
-        element = document.querySelectorAll(".page-sections section")[i];
-      if (element) {
-        this.scrollToElement(element);
-      }
     },
     scrollObserver() {
       window.addEventListener("scroll", () => {
@@ -506,5 +489,12 @@ img {
   margin: 20px 0 20px 0 !important;
   display: flex;
   justify-content: center;
+}
+.com-desc {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

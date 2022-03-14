@@ -16,6 +16,7 @@ import Resume from './views/resume.vue'
 import MaterialDark from './resumes/material-dark.vue'
 import VueHtml from './views/vue-html2pdf.vue'
 import store from './store'
+import { Role } from "./helpers/role.js"
 
 Vue.use(Router);
 
@@ -34,25 +35,34 @@ const router = new Router({
           name: "company",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/dashboard/company"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Admin
+          },
         },
         {
           path: "dashboard",
-          component: () => import("@/views/dashboard/Home")
+          component: () => import("@/views/dashboard/Home"),
+          meta: {
+            permission: Role.Admin
+          },
         },
         {
           path: "recruitment",
           name: "recruitment",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/dashboard/recruitment"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Admin
+          },
         },
         {
           path: "user",
           name: "User",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/dashboard/User"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Admin
+          },
         },
         {
           path: "candidate",
@@ -61,7 +71,9 @@ const router = new Router({
             import(
               /* webpackChunkName: "about" */ "@/views/dashboard/candidate"
             ),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Admin
+          },
         },
       ]
     },
@@ -75,21 +87,27 @@ const router = new Router({
           path: "profile",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/candidate/ProfileCandidate"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Candidate
+          },
         },
         {
           path: "job-apply",
           name: "job-apply",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/candidate/JobApply"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Candidate
+          },
         },
         {
           path: "cv",
           name: "cv",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/candidate/cv"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Candidate
+          },
         },
       ]
     },
@@ -102,19 +120,25 @@ const router = new Router({
           path: "profile",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/employer/profile"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Employer
+          },
         },
         {
           path: "recruitment",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/employer/recruitment"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Employer
+          },
         },
         {
           path: "candidates",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/views/profile/employer/candidates"),
-          meta: { transition: "zoom" }
+          meta: {
+            permission: Role.Employer
+          },
         },
         // {
         //   path: "job-apply",
@@ -203,33 +227,48 @@ const router = new Router({
       path: '/resume/material-dark/:resumeId',
       name: 'resumeDetail',
       component: MaterialDark,
-    }
+    },
+    {
+      path: "/404",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "@/views/error/404"),
+    },
+    {
+      path: "/401",
+      component: (resolve) => require(["@/views/error/401"], resolve),
+    },
+    {
+      path: "*",
+      redirect: '/404'
+    },
   ],
 });
 
-// router.beforeEach((to, from, next) => {
-//   const publicPages = ['/login', '/register', '/home'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user');
-//   // trying to access a restricted page + not logged in
-//   // redirect to login page
-//   if (authRequired && !loggedIn) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
-
 router.beforeEach((to, from, next) => {
+  const permissionRoute = to.meta.permission;
   const loggedIn = store.state.auth.status.loggedIn;
   const user = store.state.auth.user;
-  const publicPages = ['/login', '/register'];
+  if (permissionRoute) {
+    if (loggedIn) {
+      if (user.roles.includes(permissionRoute)) {
+        next();
+      } else {
+        // localStorage.removeItem('user');
+        next("/401");
+      }
+    } else {
+      next("/login");
+    }
+  }
 
+  const publicPages = ['/login', '/register'];
   if (publicPages.includes(to.path) && loggedIn) {
     next('/');
   } else {
     next();
   }
+
+
 })
 
 export default router;

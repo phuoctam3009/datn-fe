@@ -1,13 +1,12 @@
 <template>
   <v-app id="keep">
     <v-app-bar
-      src="https://images.unsplash.com/photo-1586272778445-ccec18ea579c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=500&q=60"
       fade-img-on-scroll
       app
       clipped-left
       color="primary"
       elevation="7"
-      height="75"
+      height="63"
     >
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
