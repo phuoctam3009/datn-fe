@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    style="background: #71cd95; position: relative; z-index: 999999"
+    style="background: #519259; position: relative; z-index: 999999"
     padless
   >
     <v-row align="center" justify="center" style="margin-left: 100px">

@@ -491,9 +491,10 @@ img {
   justify-content: center;
 }
 .com-desc {
+  height: 70px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

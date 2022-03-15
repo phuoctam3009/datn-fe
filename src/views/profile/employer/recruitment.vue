@@ -29,7 +29,10 @@
           cols="4"
           hover
         >
-          <v-row class="is-row-data">
+          <v-row
+            class="is-row-data"
+            :class="{ confirm: item.isActive, error: !item.isActive }"
+          >
             <v-col cols="2">
               <img
                 :src="item.avatarCom"
@@ -37,6 +40,7 @@
                   width: 150px;
                   height: 150px;
                   object-fit: cover;
+                  border-radius: 10px;
                   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
                 "
               />
@@ -711,6 +715,7 @@ form {
 
 .is-data-job {
   //padding: 30px 0 0 0;
+  min-height: 80vh;
   padding-left: unset;
   padding-right: unset;
 }
@@ -721,6 +726,15 @@ form {
 
 .is-row-data {
   padding: 20px;
+  box-shadow: unset;
+
+  &.confirm {
+    background-color: #a3da8d !important;
+  }
+
+  &.error {
+    background-color: #fec8c1 !important;
+  }
 }
 
 .is-col-data {
